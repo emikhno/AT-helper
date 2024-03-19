@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "AT helper",
+  "version": "1.0.0",
+
+  "description": "Useful tools for Author.Today (Полезные инструменты для работы с Author.Today).",
+
+  "icons": {
+    "48": "icons/at-48.png",
+    "96": "icons/at-96.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://author.today/*"
+      ],
+      "js": ["js/index.js"]
+    },
+    {
+      "matches": [
+        "*://author.today/u/*/works/edit"
+      ],
+      "js": ["js/works-edit-page.js"]
+    }
+  ]
+}
