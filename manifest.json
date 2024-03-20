@@ -13,13 +13,14 @@
   "content_scripts": [
     {
       "matches": [
-        "*://author.today/*"
+        "https://author.today/*"
       ],
-      "js": ["js/index.js"]
+      "js": ["js/index.js"],
+      "css": ["css/main.css"]
     },
     {
       "matches": [
-        "*://author.today/u/*/works/edit"
+        "https://author.today/u/*/works/edit"
       ],
       "js": ["js/works-edit-page.js"]
     }
