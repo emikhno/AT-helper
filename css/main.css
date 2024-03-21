@@ -528,10 +528,6 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     color: #FFFFFF !important;
 }
 
-.AThelper__theme_dark .fr-element {
-    background-color: #424242;
-}
-
 .AThelper__theme_dark .fr-box.fr-basic .fr-element {
     color: #FFFFFF;
 }
@@ -616,8 +612,13 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: transparent;
 }
 
-.AThelper__theme_dark .fr-wrapper .fr-placeholder { /* doesn't work */
-    color: #BDBDBD;
+.AThelper__theme_dark .fr-element {
+    background-color: rgba(0, 0, 0, 0.7);;
+}
+
+.AThelper__theme_dark .fr-wrapper .fr-placeholder,
+.AThelper__theme_dark .fr-box:not(.fr-basic) .fr-wrapper .fr-placeholder {
+    color: #FFFFFF;
 }
 
 .AThelper__theme_dark .fr-view h2:not(.panel-title) {
@@ -874,6 +875,30 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 
 .AThelper__theme_dark .chart {
     background-color: #616161;
+}
+
+.AThelper__theme_dark .daterangepicker .calendar-table {
+    background-color: #424242;
+}
+
+.AThelper__theme_dark .daterangepicker td.off {
+    background-color: #616161;
+}
+
+.AThelper__theme_dark .daterangepicker td.available:hover {
+    background-color: #212121;
+}
+
+.AThelper__theme_dark .post-stats > span > a {
+    color: #BDBDBD;
+}
+
+.AThelper__theme_dark .list-group .list-group-item .contact:hover {
+    background-color: #212121;
+}
+
+.AThelper__theme_dark .comment.is-new header {
+    background-color: #000000;
 }
 
 /* Other */
