@@ -24,6 +24,18 @@
         "https://author.today/u/*/works/edit"
       ],
       "js": ["js/works-edit-page.js"]
+    },
+    {
+      "matches": [
+        "https://author.today/reader/*"
+      ],
+      "js": ["js/reader-page.js"]
+    },
+    {
+      "matches": [
+        "https://author.today/work/*"
+      ],
+      "js": ["js/work-page.js"]
     }
   ]
 }

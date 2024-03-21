@@ -3,13 +3,14 @@
 /* Menu */
 .AThelper__menu {
     position: fixed;
-    bottom: 8px;
-    right: 8px;
+    bottom: 10px;
+    right: 10px;
     width: 36px;
-    height: 36px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 2;
 }
 
 /* Dark theme */
@@ -901,6 +902,11 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: #000000;
 }
 
+.AThelper__theme_dark .alert-info {
+    background-color: #616161;
+    color: #FFFFFF;
+}
+
 /* Other */
 .AThelper__cursor {
     cursor: pointer;
@@ -908,4 +914,17 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 
 .AThelper__mt-auto {
     margin-top: auto;
+}
+
+.AThelper__my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.AThelper__d-none {
+    display: none;
+}
+
+.AThelper__d-block {
+    display: block;
 }

@@ -50,7 +50,7 @@ function handleBookStat(book, bookName, statName) {
         } else {
             diff = statCurrent - statLast;
         }
-        const diffColor = diff > 0 ? '#4CAF50' : (diff < 0 ? '#F44336' : 'inherit');
+        const diffColor = diff > 0 ? '#4CAF50' : (diff < 0 ? '#F44336' : '#757575');
         const diffSign = diff > 0 ? '+' : '';
         statElement.innerHTML = statElement.innerHTML + `(<span style="color: ${diffColor}">${diffSign}${diff}</span>)`;
     }
