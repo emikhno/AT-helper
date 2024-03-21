@@ -7,7 +7,7 @@ const dateOptions = {
     second: 'numeric'
 }
 const dateCurrent = new Date().toLocaleString("ru", dateOptions);
-const dateLast = localStorage.getItem('dateLast');
+const dateLast = localStorage.getItem(`${extPrefix}dateLast`);
 
 const books = document.querySelectorAll('.book-row');
 
@@ -15,7 +15,7 @@ if (dateLast !== null) {
     const showLastDate = document.createElement('div');
     showLastDate.style.marginBottom = '10px';
     showLastDate.textContent = 'Последнее сканирование: ' + dateLast;
-    document.getElementById('search-results').insertBefore(showLastDate, books[0]);
+    document.getElementById('search-results').prepend(showLastDate);
 }
 
 for (let i = 0; i < books.length; i++) {
@@ -27,19 +27,19 @@ for (let i = 0; i < books.length; i++) {
     handleBookStat(books[i], bookName, 'Комментарии');
 }
 
-localStorage.setItem('dateLast', dateCurrent);
+localStorage.setItem(`${extPrefix}dateLast`, dateCurrent);
 
 
 
 function handleBookStat(book, bookName, statName) {
     const statElement = book.querySelector('[data-hint="' + statName + '"]');
     const statCurrent = parseInt(statElement.outerText.replace(/\D/g, ''));
-    const statLast = localStorage.getItem(bookName + ': ' + statName);
+    const statLast = localStorage.getItem(`${extPrefix}${bookName}: ${statName}`);
     if (statLast !== null) {
         const diff = statCurrent - parseInt(statLast);
-        const diffColor = diff > 0 ? 'green' : (diff < 0 ? 'red' : 'inherit');
+        const diffColor = diff > 0 ? '#4CAF50' : (diff < 0 ? '#F44336' : 'inherit');
         const diffSign = diff > 0 ? '+' : '';
         statElement.innerHTML = statElement.innerHTML + `(<span style="color: ${diffColor}">${diffSign}${diff}</span>)`;
     }
-    localStorage.setItem(bookName + ': ' + statName, statCurrent);
+    localStorage.setItem(`${extPrefix}${bookName}: ${statName}`, statCurrent);
 }

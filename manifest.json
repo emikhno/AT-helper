@@ -16,7 +16,8 @@
         "https://author.today/*"
       ],
       "js": ["js/index.js"],
-      "css": ["css/main.css"]
+      "css": ["css/main.css"],
+      "run_at": "document_end"
     },
     {
       "matches": [
