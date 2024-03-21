@@ -1,3 +1,4 @@
+const bsPrefix = extPrefix + '_bookStat_';
 const dateOptions = {
     year: 'numeric',
     month: 'long',
@@ -7,7 +8,7 @@ const dateOptions = {
     second: 'numeric'
 }
 const dateCurrent = new Date().toLocaleString("ru", dateOptions);
-const dateLast = localStorage.getItem(`${extPrefix}dateLast`);
+const dateLast = localStorage.getItem(`${bsPrefix}dateLast`);
 
 const books = document.querySelectorAll('.book-row');
 
@@ -27,19 +28,31 @@ for (let i = 0; i < books.length; i++) {
     handleBookStat(books[i], bookName, 'Комментарии');
 }
 
-localStorage.setItem(`${extPrefix}dateLast`, dateCurrent);
+localStorage.setItem(`${bsPrefix}dateLast`, dateCurrent);
 
 
 
 function handleBookStat(book, bookName, statName) {
     const statElement = book.querySelector('[data-hint="' + statName + '"]');
-    const statCurrent = parseInt(statElement.outerText.replace(/\D/g, ''));
-    const statLast = localStorage.getItem(`${extPrefix}${bookName}: ${statName}`);
+    let statCurrent = statElement.outerText;
+    const isShortStatK = statCurrent.search(/\d+K$/) !== -1;
+    const isShortStatM = statCurrent.search(/\d+М$/) !== -1;
+    statCurrent = statCurrent.replace(/\D/g, '');
+    statCurrent = isShortStatM ? parseFloat(statCurrent) : parseInt(statCurrent);
+    let statLast = localStorage.getItem(`${bsPrefix}${bookName}: ${statName}`);
     if (statLast !== null) {
-        const diff = statCurrent - parseInt(statLast);
+        statLast = isShortStatM ? parseFloat(statLast) : parseInt(statLast);
+        let diff = 0;
+        if (isShortStatK && statLast > 999) {
+            diff = statCurrent - 10;
+        } else if (isShortStatM && statLast > 999) {
+            diff = statCurrent - 1;
+        } else {
+            diff = statCurrent - statLast;
+        }
         const diffColor = diff > 0 ? '#4CAF50' : (diff < 0 ? '#F44336' : 'inherit');
         const diffSign = diff > 0 ? '+' : '';
         statElement.innerHTML = statElement.innerHTML + `(<span style="color: ${diffColor}">${diffSign}${diff}</span>)`;
     }
-    localStorage.setItem(`${extPrefix}${bookName}: ${statName}`, statCurrent);
+    localStorage.setItem(`${bsPrefix}${bookName}: ${statName}`, statCurrent);
 }
