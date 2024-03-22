@@ -1,5 +1,4 @@
 const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
-typoIcon.classList.remove(`${extPrefix}d-none`);
 typoIcon.classList.add(`${extPrefix}d-block`);
 typoIcon.addEventListener('click', () => {
     openWhatWrongModal();
