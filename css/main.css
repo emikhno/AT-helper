@@ -1,6 +1,6 @@
-/* AThelper */
+/* ================================================ AThelper ================================================ */
 
-/* Menu */
+/* ================================================ Menu ================================================ */
 .AThelper__menu {
     position: fixed;
     bottom: 10px;
@@ -10,10 +10,137 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 2;
+    z-index: 9998; /* for mobiles, for desktops value 2 is enough */
 }
 
-/* Dark theme */
+/* ================================================ Modal ================================================ */
+.AThelper__modal {
+    display: none;
+    position: fixed;
+    z-index: 9999; /* for mobiles, for desktops value 9 is enough */
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.AThelper__modal_content {
+    position: relative;
+    background-color: #FAFAFA;
+    margin: auto;
+    padding: 0;
+    border: 5px solid #BDBDBD;
+    border-radius: 4px;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+span.AThelper__modal_close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.AThelper__modal_close:hover,
+.AThelper__modal_close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.AThelper__modal_header {
+    padding: 2px 16px;
+    background-color: #E0E0E0;
+    text-align: center;
+}
+
+.AThelper__modal_body {
+    padding: 2px 16px;
+}
+
+.AThelper__modal_footer {
+    padding: 8px 16px;
+    background-color: #BDBDBD;
+}
+
+.AThelper__typoIcon,
+.AThelper__typosList {
+    display: none;
+}
+
+/* ================================================ Other ================================================ */
+.AThelper__cursor {
+    cursor: pointer;
+}
+
+.AThelper__mt-auto {
+    margin-top: auto;
+}
+
+.AThelper__my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.AThelper__ml-auto {
+    margin-left: auto;
+}
+
+.AThelper__mr-2 {
+    margin-right: 8px;
+}
+
+.AThelper__mt-2 {
+    margin-top: 8px;
+}
+
+.AThelper__d-none {
+    display: none;
+}
+
+.AThelper__d-block {
+    display: block;
+}
+
+.AThelper__d-flex {
+    display: flex;
+}
+
+.AThelper__bold {
+    font-weight: bold;
+}
+
+/* ================================================ Dark theme ================================================ */
 .AThelper__theme_dark {
     background-color: #424242;
     color: #FFFFFF;
@@ -939,131 +1066,4 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 
 .AThelper__theme_dark .AThelper__modal_close:hover {
     color: #BDBDBD;
-}
-
-/* Modal */
-.AThelper__modal {
-    display: none;
-    position: fixed;
-    z-index: 9;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.AThelper__modal_content {
-    position: relative;
-    background-color: #FAFAFA;
-    margin: auto;
-    padding: 0;
-    border: 5px solid #BDBDBD;
-    border-radius: 4px;
-    width: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
-    }
-    to {
-        top: 0;
-        opacity: 1
-    }
-}
-
-@keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
-    }
-    to {
-        top: 0;
-        opacity: 1
-    }
-}
-
-span.AThelper__modal_close {
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.AThelper__modal_close:hover,
-.AThelper__modal_close:focus {
-    color: #000;
-    text-decoration: none;
-}
-
-.AThelper__modal_header {
-    padding: 2px 16px;
-    background-color: #E0E0E0;
-    text-align: center;
-}
-
-.AThelper__modal_body {
-    padding: 2px 16px;
-}
-
-.AThelper__modal_footer {
-    padding: 8px 16px;
-    background-color: #BDBDBD;
-}
-
-.AThelper__typoIcon,
-.AThelper__typosList {
-    display: none;
-}
-
-/* Other */
-.AThelper__cursor {
-    cursor: pointer;
-}
-
-.AThelper__mt-auto {
-    margin-top: auto;
-}
-
-.AThelper__my-auto {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.AThelper__ml-auto {
-    margin-left: auto;
-}
-
-.AThelper__mr-2 {
-    margin-right: 8px;
-}
-
-.AThelper__mt-2 {
-    margin-top: 8px;
-}
-
-.AThelper__d-none {
-    display: none;
-}
-
-.AThelper__d-block {
-    display: block;
-}
-
-.AThelper__d-flex {
-    display: flex;
-}
-
-.AThelper__bold {
-    font-weight: bold;
 }
