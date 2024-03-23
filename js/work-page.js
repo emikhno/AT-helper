@@ -55,11 +55,12 @@ function openListModal() {
     typoListCopy.addEventListener('click', () => {
         const commentField = document.querySelector('.fr-element');
         if (commentField) {
-            commentField.innerHTML = typoListBody.innerHTML;
-            // commentField.innerHTML = typosText;
             commentField.focus();
+            typoListBody.childNodes.forEach(node => {
+                commentField.appendChild(node.cloneNode(true));
+            });
 
-            /*try {
+            try {
                 const form = commentField.closest('form');
                 setTimeout(() => {
                     const submitButton = form.querySelector('[data-bind="btn: processing, disable: disableSubmit"]');
@@ -67,7 +68,7 @@ function openListModal() {
                 });
             } catch (error) {
                 console.log(form, submitButton);
-            }*/
+            }
         }
         typoListModal.classList.remove('AThelper__d-block');
     });
