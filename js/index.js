@@ -39,9 +39,14 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
+const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
 let themeCurrent = localStorage.getItem(`${extPrefix}theme`);
-if (themeCurrent === 'dark') {
+if (themeCurrent === 'dark' && !isMobileLayout) {
     setDarkTheme();
+}
+if (isMobileLayout) {
+    themeToggle.classList.add(`${extPrefix}d-none`);
+    document.body.classList.remove(`${extPrefix}theme_dark`);
 }
 
 // Create modal
