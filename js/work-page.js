@@ -14,13 +14,13 @@ if (bookTypos) {
 
 function openListModal() {
     const typoListTitle = typoListModal.querySelector(`.${extPrefix}modal_title`);
-    typoListTitle.textContent = 'Опечатки';
+    typoListTitle.textContent = browser.i18n.getMessage("typosText");
     const typoListBody = typoListModal.querySelector(`.${extPrefix}modal_body`);
     typoListBody.innerHTML = '';
     const typoListCopy = typoListModal.querySelector(`.${extPrefix}modal_actionMain`);
-    typoListCopy.textContent = 'Копировать';
+    typoListCopy.textContent = browser.i18n.getMessage("copyText");
     const typoListClear = typoListModal.querySelector(`.${extPrefix}modal_actionSecond`);
-    typoListClear.textContent = 'Очистить';
+    typoListClear.textContent = browser.i18n.getMessage("clearText");
 
     let prevChapter = '';
     // let typosText = '';
@@ -73,7 +73,7 @@ function openListModal() {
     });
 
     typoListClear.addEventListener('click', () => {
-       const result = confirm('Вы уверены, что хотите удалить все записи?');
+       const result = confirm(browser.i18n.getMessage("clearConfirm"));
        if (result) {
            localStorage.removeItem(`${extPrefix}typos_${bookId}`);
            typosList.classList.remove(`${extPrefix}d-block`);

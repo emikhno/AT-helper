@@ -3,7 +3,9 @@
   "name": "AT helper",
   "version": "1.0.0",
 
-  "description": "Useful tools for Author.Today (Полезные инструменты для работы с Author.Today).",
+  "description": "__MSG_extensionDescription__",
+
+  "default_locale": "ru",
 
   "icons": {
     "48": "icons/at-48.png",

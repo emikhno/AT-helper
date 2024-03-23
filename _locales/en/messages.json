@@ -1,0 +1,61 @@
+{
+  "extensionDescription": {
+    "message": "Useful tools for site: Author.Today.",
+    "description": "Description of the extension."
+  },
+
+  "themeToggleTitle": {
+    "message": "Toggle theme.",
+    "description": "Hint when hovering over the theme switching icon."
+  },
+
+  "typosListTitle": {
+    "message": "Show all typos.",
+    "description": "Hint when hovering over a typos list icon."
+  },
+
+  "typoIconTitle": {
+    "message": "If you find a typo, please select the text fragment and press this icon or Ctrl+Enter.",
+    "description": "Hint when hovering over a typo icon."
+  },
+
+  "typoDescription": {
+    "message": "Describe the typo in the fragment highlighted with three asterisks (this is optional):",
+    "description": "A hint when a typo is highlighted."
+  },
+
+  "typoSubmit": {
+    "message": "Click OK to save the typo information.",
+    "description": "A hint when a typo is highlighted."
+  },
+
+  "clearConfirm": {
+    "message": "Are you sure you want to delete all records?",
+    "description": "Confirmation of deletion of all records."
+  },
+
+  "closeText": {
+    "message": "Close",
+    "description": "Some text."
+  },
+
+  "typosText": {
+    "message": "Typos",
+    "description": "Some text."
+  },
+
+  "copyText": {
+    "message": "Copy",
+    "description": "Some text."
+  },
+
+  "clearText": {
+    "message": "Clear",
+    "description": "Some text."
+  },
+
+  "lastScanText": {
+    "message": "Last scan date:",
+    "description": "Some text."
+  }
+}

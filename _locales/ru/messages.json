@@ -1,0 +1,61 @@
+{
+  "extensionDescription": {
+    "message": "Полезные инструменты для работы с Author.Today.",
+    "description": "Описание расширения."
+  },
+
+  "themeToggleTitle": {
+    "message": "Сменить тему.",
+    "description": "Подсказка при наведении на иконку переключения темы."
+  },
+
+  "typosListTitle": {
+    "message": "Показать все опечатки.",
+    "description": "Подсказка при наведении на иконку показа всех опечаток."
+  },
+
+  "typoIconTitle": {
+    "message": "Если вы нашли ошибку, пожалуйста, выделите фрагмент текста и нажмите на эту иконку или Ctrl+Enter.",
+    "description": "Подсказка при наведении на иконку опечатки."
+  },
+
+  "typoDescription": {
+    "message": "Опишите ошибку в выделенном тремя звёздочками фрагменте (это необязательно):",
+    "description": "Подсказка при выделении ошибки."
+  },
+
+  "typoSubmit": {
+    "message": "Нажмите ОК, чтобы сохранить информацию об ошибке.",
+    "description": "Подсказка при выделении ошибки."
+  },
+
+  "clearConfirm": {
+    "message": "Вы уверены, что хотите удалить все записи?",
+    "description": "Подтвеждение удаления всех записей."
+  },
+
+  "closeText": {
+    "message": "Закрыть",
+    "description": "Текст."
+  },
+
+  "typosText": {
+    "message": "Опечатки",
+    "description": "Текст."
+  },
+
+  "copyText": {
+    "message": "Копировать",
+    "description": "Текст."
+  },
+
+  "clearText": {
+    "message": "Очистить",
+    "description": "Текст."
+  },
+
+  "lastScanText": {
+    "message": "Последнее сканирование:",
+    "description": "Текст."
+  }
+}

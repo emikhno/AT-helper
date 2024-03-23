@@ -15,14 +15,14 @@ const books = document.querySelectorAll('.book-row');
 if (dateLast !== null) {
     const showLastDate = document.createElement('div');
     showLastDate.style.marginBottom = '10px';
-    showLastDate.textContent = 'Последнее сканирование: ' + dateLast;
+    showLastDate.textContent = browser.i18n.getMessage("lastScanText") + ' ' + dateLast;
     document.getElementById('search-results').prepend(showLastDate);
 }
 
 for (let i = 0; i < books.length; i++) {
 	const bookName = books[i].querySelector('.book-title a').textContent;
 
-    handleBookStat(books[i], bookName, 'Просмотры');
+    handleBookStat(books[i], bookName, 'Просмотры'); // Do not translate because this text is used for searching elements
     handleBookStat(books[i], bookName, 'Понравилось');
     handleBookStat(books[i], bookName, 'Добавили в библиотеку');
     handleBookStat(books[i], bookName, 'Комментарии');

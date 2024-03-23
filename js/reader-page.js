@@ -27,9 +27,9 @@ if (!isDefendedFromCopying) {
 
 
 function openWhatWrongModal() {
-    userSelection.typoDescription = prompt(`Опишите ошибку в выделенном тремя звёздочками фрагменте (это необязательно):\n
+    userSelection.typoDescription = prompt(`${browser.i18n.getMessage("typoDescription")}\n
 ${userSelection.start}[***]${userSelection.selected}[***]${userSelection.end}\n
-Нажмите ОК, чтобы сохранить информацию об ошибке.`, ''); // TODO replace to custom modal
+${browser.i18n.getMessage("typoSubmit")}`, ''); // TODO Should it be replaced to a custom modal?
 
     if (userSelection.typoDescription !== null) {
         userSelection.chapterName = document.querySelector('h1').textContent;
