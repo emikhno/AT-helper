@@ -1,24 +1,29 @@
-const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
-typoIcon.classList.add(`${extPrefix}d-block`);
-typoIcon.addEventListener('click', () => {
-    openWhatWrongModal();
-});
 let userSelection = {};
 
-document.onselectionchange = () => {
-    const selection = document.getSelection();
-    if (!selection.isCollapsed) {
-        userSelection.start = selection.anchorNode.textContent.slice(0, selection.anchorOffset);
-        userSelection.selected = selection.toString();
-        userSelection.end = selection.focusNode.textContent.slice(selection.focusOffset);
+const isDefendedFromCopying = document.querySelector('.noselect ');
+if (!isDefendedFromCopying) {
+    const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
+    typoIcon.classList.add(`${extPrefix}d-block`);
+    typoIcon.addEventListener('click', () => {
+        openWhatWrongModal();
+    });
+
+    document.onselectionchange = () => {
+        const selection = document.getSelection();
+        if (!selection.isCollapsed) {
+            userSelection.start = selection.anchorNode.textContent.slice(0, selection.anchorOffset);
+            userSelection.selected = selection.toString();
+            userSelection.end = selection.focusNode.textContent.slice(selection.focusOffset);
+        }
     }
+
+    document.addEventListener('keyup', event => {
+        if (event.ctrlKey && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+            openWhatWrongModal();
+        }
+    });
 }
 
-document.addEventListener('keyup', event => {
-    if (event.ctrlKey && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-        openWhatWrongModal();
-    }
-});
 
 
 function openWhatWrongModal() {

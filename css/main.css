@@ -937,6 +937,10 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: #000000;
 }
 
+.AThelper__theme_dark .AThelper__modal_close:hover {
+    color: #BDBDBD;
+}
+
 /* Modal */
 .AThelper__modal {
     display: none;
