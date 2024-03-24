@@ -1,9 +1,9 @@
 const bookId = location.pathname.split('/')[2];
 let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
+const typosList = document.getElementById(`${extPrefix}typosList`);
 
 if (bookTypos) {
     bookTypos = JSON.parse(bookTypos);
-    const typosList = document.getElementById(`${extPrefix}typosList`);
     typosList.classList.add(`${extPrefix}d-block`);
     typosList.addEventListener('click', () => {
         openListModal();
