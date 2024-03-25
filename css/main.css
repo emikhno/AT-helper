@@ -903,7 +903,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     color: #FFFFFF;
 }
 
-.brightness-5 header {
+.AThelper__theme_dark.brightness-5 header {
     background-color: #000000;
 }
 
@@ -912,7 +912,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     color: #FFFFFF;
 }
 
-.brightness-4 header {
+.AThelper__theme_dark.brightness-4 header {
     background-color: #212121;
 }
 
@@ -921,7 +921,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     color: #FFFFFF;
 }
 
-.brightness-3 header {
+.AThelper__theme_dark.brightness-3 header {
     background-color: #424242;
 }
 
@@ -932,7 +932,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     color: #FFFFFF !important;
 }
 
-.brightness-3 #reader .btn-brd {
+.AThelper__theme_dark.brightness-3 #reader .btn-brd {
     border-color: #FFFFFF;
 }
 
@@ -1071,4 +1071,117 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 
 .AThelper__theme_dark .nav-pills-v2 .nav > li.active .nav-value {
     color: #FFFFFF;
+}
+
+.AThelper__theme_dark .topnavbar-wrapper.navbar-fixed-top {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .dropdown-menu>li>a:hover,
+.AThelper__theme_dark .dropdown-menu>li>a:focus {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark a:hover,
+.AThelper__theme_dark a:focus {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .btn-default:hover {
+    background-color: #424242;
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .footer a {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .collection-title>a {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .pagination>li>a,
+.AThelper__theme_dark .pagination>li>span,
+.AThelper__theme_dark .pagination>li>a:hover,
+.AThelper__theme_dark .pagination>li>span:hover {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .collection-author-info {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .collection-author-info .author-fio {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .collection-stats {
+    color: #BDBDBD;
+}
+
+.AThelper__theme_dark .btn-like:hover:not(.disabled) {
+    background-color: #424242;
+}
+
+.AThelper__theme_dark .btn-default.active,
+.AThelper__theme_dark .btn-default.hover:hover {
+    background-color: #424242 !important;
+}
+
+.AThelper__theme_dark .comment.is-new header,
+.AThelper__theme_dark .is-new .comment-toggle-expand,
+.AThelper__theme_dark .load-more-comments.is-new {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .load-more-comments.is-new,
+.AThelper__theme_dark .is-new .comment-toggle-expand {
+    color: #BDBDBD;
+}
+
+.AThelper__theme_dark .library .aside-left .nav-pills > li.active > a {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .library .aside-left .nav-pills > li > a:hover {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .library .aside-left .nav-pills > li > a {
+    color: #BDBDBD;
+}
+
+.AThelper__theme_dark .book-page .nav>li>a:focus,
+.AThelper__theme_dark .book-page .nav>li>a:hover {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .book-stats a  {
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .feed-row.comment-wrapper .comment:hover {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .btn-simple-danger {
+    background-color: #BDBDBD;
+}
+
+.AThelper__theme_dark .nav .open>a,
+.AThelper__theme_dark .nav .open>a:hover,
+.AThelper__theme_dark .nav .open>a:focus {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .sidebar>.nav>li.active>a,
+.AThelper__theme_dark .sidebar>.nav>li.active>span {
+    color: #BDBDBD;
+}
+
+.AThelper__theme_dark .form-control[disabled],
+.AThelper__theme_dark .form-control[readonly],
+.AThelper__theme_dark fieldset[disabled] .form-control {
+    background-color: #616161;
 }
