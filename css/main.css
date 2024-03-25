@@ -1068,3 +1068,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .AThelper__modal_close:hover {
     color: #BDBDBD;
 }
+
+.AThelper__theme_dark .nav-pills-v2 .nav > li.active .nav-value {
+    color: #FFFFFF;
+}
