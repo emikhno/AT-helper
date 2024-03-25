@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "AT helper",
   "version": "1.0.1",
 
@@ -17,7 +17,10 @@
       "matches": [
         "https://author.today/*"
       ],
-      "js": ["js/index.js"],
+      "js": [
+        "js/browser-polyfill.js",
+        "js/index.js"
+      ],
       "css": ["css/main.css"],
       "run_at": "document_end"
     },
