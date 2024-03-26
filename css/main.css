@@ -1185,3 +1185,11 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark fieldset[disabled] .form-control {
     background-color: #616161;
 }
+
+.AThelper__theme_dark .feed-row.is-new {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .feed header .title>a {
+    color: #BDBDBD;
+}
