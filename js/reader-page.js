@@ -1,7 +1,12 @@
-let userSelection = {};
+(function (AThelper) {
+    const extPrefix = AThelper.prefix;
+    let userSelection = {};
 
-const isDefendedFromCopying = document.querySelector('.noselect ');
-if (!isDefendedFromCopying) {
+    const isDefendedFromCopying = document.querySelector('.noselect ');
+    if (isDefendedFromCopying) {
+        return;
+    }
+
     const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
     typoIcon.classList.add(`${extPrefix}d-block`);
     typoIcon.addEventListener('click', () => {
@@ -22,36 +27,38 @@ if (!isDefendedFromCopying) {
             openWhatWrongModal();
         }
     });
-}
 
 
 
-function openWhatWrongModal() {
-    userSelection.typoDescription = prompt(`${browser.i18n.getMessage("typoDescription")}\n
-${userSelection.start}[***]${userSelection.selected}[***]${userSelection.end}\n
-${browser.i18n.getMessage("typoSubmit")}`, ''); // TODO Should it be replaced to a custom modal?
+    function openWhatWrongModal() {
+        userSelection.typoDescription = prompt(
+            `${browser.i18n.getMessage("typoDescription")}\n
+                ${userSelection.start}[***]${userSelection.selected}[***]${userSelection.end}\n
+                ${browser.i18n.getMessage("typoSubmit")}`,
+            ''); // TODO Should it be replaced to a custom modal?
 
-    if (userSelection.typoDescription !== null) {
-        userSelection.chapterName = document.querySelector('h1').textContent;
-        const bookId = location.pathname.split('/')[2];
-        let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
+        if (userSelection.typoDescription !== null) {
+            userSelection.chapterName = document.querySelector('h1').textContent;
+            const bookId = location.pathname.split('/')[2];
+            let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
 
-        if (!bookTypos) {
-            localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([userSelection]));
-        } else {
-            bookTypos = JSON.parse(bookTypos);
-            localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([...bookTypos, userSelection]));
-        }
-
-        userSelection = {};
-        if (window.getSelection) {
-            if (window.getSelection().empty) { // Chrome
-                window.getSelection().empty();
-            } else if (window.getSelection().removeAllRanges) { // Firefox
-                window.getSelection().removeAllRanges();
+            if (!bookTypos) {
+                localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([userSelection]));
+            } else {
+                bookTypos = JSON.parse(bookTypos);
+                localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([...bookTypos, userSelection]));
             }
-        } else if (document.selection) { // IE
-            document.selection.empty();
+
+            userSelection = {};
+            if (window.getSelection) {
+                if (window.getSelection().empty) { // Chrome
+                    window.getSelection().empty();
+                } else if (window.getSelection().removeAllRanges) { // Firefox
+                    window.getSelection().removeAllRanges();
+                }
+            } else if (document.selection) { // IE
+                document.selection.empty();
+            }
         }
     }
-}
+}(window.AThelper));
