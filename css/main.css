@@ -1193,3 +1193,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .feed header .title>a {
     color: #BDBDBD;
 }
+
+.AThelper__theme_dark .library .aside-left .nav-pills > li > a {
+    color: #BDBDBD;
+}
