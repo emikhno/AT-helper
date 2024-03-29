@@ -15,14 +15,15 @@
 
 
     function openListModal() {
-        const typoListTitle = AThelper.modal.querySelector(`.${extPrefix}modal_title`);
-        typoListTitle.textContent = browser.i18n.getMessage("typosText");
-        const typoListBody = AThelper.modal.querySelector(`.${extPrefix}modal_body`);
-        typoListBody.innerHTML = '';
-        const typoListCopy = AThelper.modal.querySelector(`.${extPrefix}modal_actionMain`);
-        typoListCopy.textContent = browser.i18n.getMessage("copyText");
-        const typoListClear = AThelper.modal.querySelector(`.${extPrefix}modal_actionSecond`);
-        typoListClear.textContent = browser.i18n.getMessage("clearText");
+        const typosListTitle = AThelper.modal.querySelector(`.${extPrefix}modal_title`);
+        typosListTitle.textContent = browser.i18n.getMessage("typosText");
+        const typosListBody = AThelper.modal.querySelector(`.${extPrefix}modal_body`);
+        typosListBody.innerHTML = '';
+        const typosListCopy = AThelper.modal.querySelector(`.${extPrefix}modal_actionMain`);
+        typosListCopy.textContent = browser.i18n.getMessage("copyText");
+        const typosListClear = AThelper.modal.querySelector(`.${extPrefix}modal_actionSecond`);
+        typosListClear.classList.add(`${extPrefix}d-block`)
+        typosListClear.textContent = browser.i18n.getMessage("clearText");
 
         let prevChapter = '';
         // let typosText = '';
@@ -50,15 +51,15 @@
             }
             typoElement.appendChild(typoBody);
 
-            typoListBody.appendChild(typoElement);
+            typosListBody.appendChild(typoElement);
             prevChapter = typo.chapterName;
         });
 
-        typoListCopy.addEventListener('click', () => {
+        typosListCopy.addEventListener('click', () => {
             const commentField = document.querySelector('.fr-element');
             if (commentField) {
                 commentField.focus();
-                typoListBody.childNodes.forEach(node => {
+                typosListBody.childNodes.forEach(node => {
                     commentField.appendChild(node.cloneNode(true));
                 });
 
@@ -69,21 +70,21 @@
                         submitButton.removeAttribute('disabled');
                     });
                 } catch (error) {
-                    console.log(form, submitButton);
+                    console.warn(form, submitButton);
                 }
             }
-            AThelper.modal.classList.remove('AThelper__d-block');
+            AThelper.modal.classList.remove(`${extPrefix}d-block`);
         });
 
-        typoListClear.addEventListener('click', () => {
+        typosListClear.addEventListener('click', () => {
             const result = confirm(browser.i18n.getMessage("clearConfirm"));
             if (result) {
                 localStorage.removeItem(`${extPrefix}typos_${bookId}`);
                 typosList.classList.remove(`${extPrefix}d-block`);
-                AThelper.modal.classList.remove('AThelper__d-block');
+                AThelper.modal.classList.remove(`${extPrefix}d-block`);
             }
         });
 
-        AThelper.modal.classList.add('AThelper__d-block');
+        AThelper.modal.classList.add(`${extPrefix}d-block`);
     }
 }(window.AThelper));

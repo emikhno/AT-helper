@@ -14,6 +14,10 @@
     z-index: 9998; /* for mobiles, for desktops value 2 is enough */
 }
 
+.AThelper__typoIcon {
+    display: none;
+}
+
 /* ================================================ Modal ================================================ */
 .AThelper__modal {
     display: none;
@@ -43,6 +47,11 @@
     animation-duration: 0.4s
 }
 
+@media (max-width: 1200px)  {
+    .AThelper__modal_content {
+        width: 75%;
+    }
+}
 
 @-webkit-keyframes animatetop {
     from {
@@ -86,7 +95,7 @@ span.AThelper__modal_close {
 }
 
 .AThelper__modal_body {
-    padding: 2px 16px;
+    padding: 16px;
 }
 
 .AThelper__modal_footer {
@@ -94,8 +103,8 @@ span.AThelper__modal_close {
     background-color: #BDBDBD;
 }
 
-.AThelper__typoIcon,
-.AThelper__typosList {
+.AThelper__typosList,
+.AThelper__modal_actionSecond {
     display: none;
 }
 
@@ -137,8 +146,20 @@ span.AThelper__modal_close {
     display: flex;
 }
 
+.AThelper__w-100 {
+    width: 100%;
+}
+
 .AThelper__bold {
     font-weight: bold;
+}
+
+.AThelper__text-center {
+    text-align: center;
+}
+
+.AThelper__font-italic {
+    font-style: italic;
 }
 
 /* ================================================ Dark theme ================================================ */
@@ -1196,4 +1217,9 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 
 .AThelper__theme_dark .library .aside-left .nav-pills > li > a {
     color: #BDBDBD;
+}
+
+.AThelper__theme_dark .sweet-alert .icon.success::before,
+.AThelper__theme_dark .sweet-alert .icon.success::after {
+    background-color: transparent;
 }

@@ -82,6 +82,11 @@
             extModal.classList.remove(`${extPrefix}d-block`);
         }
     });
+    window.addEventListener('keyup', (event) => {
+        if (extModal.classList.contains(`${extPrefix}d-block`) && event.code === 'Escape') {
+            extModal.classList.remove(`${extPrefix}d-block`);
+        }
+    });
 
 
 
