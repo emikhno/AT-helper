@@ -24,6 +24,11 @@
     "description": "Подсказка при выделении ошибки."
   },
 
+  "typoDescriptionText": {
+    "message": "Опишите ошибку",
+    "description": "Текст."
+  },
+
   "typoSubmit": {
     "message": "Нажмите ОК, чтобы сохранить информацию об ошибке.",
     "description": "Подсказка при выделении ошибки."
@@ -39,6 +44,11 @@
     "description": "Текст."
   },
 
+  "typoText": {
+    "message": "Опечатка",
+    "description": "Текст."
+  },
+
   "typosText": {
     "message": "Опечатки",
     "description": "Текст."
@@ -46,6 +56,11 @@
 
   "copyText": {
     "message": "Копировать",
+    "description": "Текст."
+  },
+
+  "saveText": {
+    "message": "Сохранить",
     "description": "Текст."
   },
 

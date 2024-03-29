@@ -24,6 +24,11 @@
     "description": "A hint when a typo is highlighted."
   },
 
+  "typoDescriptionText": {
+    "message": "Describe the typo",
+    "description": "Some text."
+  },
+
   "typoSubmit": {
     "message": "Click OK to save the typo information.",
     "description": "A hint when a typo is highlighted."
@@ -39,6 +44,11 @@
     "description": "Some text."
   },
 
+  "typoText": {
+    "message": "Typo",
+    "description": "Some text."
+  },
+
   "typosText": {
     "message": "Typos",
     "description": "Some text."
@@ -46,6 +56,11 @@
 
   "copyText": {
     "message": "Copy",
+    "description": "Some text."
+  },
+
+  "saveText": {
+    "message": "Save",
     "description": "Some text."
   },
 
