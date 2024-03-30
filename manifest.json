@@ -39,5 +39,11 @@
       ],
       "js": ["js/work-page.js"]
     }
-  ]
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "mikhneger@yandex.ru"
+    }
+  }
 }
