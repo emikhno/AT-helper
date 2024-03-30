@@ -226,7 +226,8 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: #424242;
 }
 
-.AThelper__theme_dark .dropdown-menu > li > a:hover {
+.AThelper__theme_dark .dropdown-menu > li > a:hover,
+.AThelper__theme_dark .dropdown-menu > li > a:focus {
     background-color: #212121;
 }
 
@@ -589,7 +590,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 }
 
 .AThelper__theme_dark .filter-list .filter-item {
-    color: #616161;
+    color: #BDBDBD;
 }
 
 .AThelper__theme_dark .filter-list .filter-item.ignored {
@@ -689,7 +690,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 
 .AThelper__theme_dark .fr-view blockquote {
     background-color: #424242;
-    color: #BDBDBD;
+    color: #FFFFFF;
 }
 
 .AThelper__theme_dark .fr-box .fr-counter {
@@ -1222,4 +1223,8 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .sweet-alert .icon.success::before,
 .AThelper__theme_dark .sweet-alert .icon.success::after {
     background-color: transparent;
+}
+
+.AThelper__theme_dark .comments .highlighted {
+    background-color: #000000;
 }
