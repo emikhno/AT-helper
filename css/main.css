@@ -79,6 +79,7 @@ span.AThelper__modal_close {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    line-height: 2;
     cursor: pointer;
 }
 
