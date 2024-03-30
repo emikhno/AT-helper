@@ -2,7 +2,7 @@
     const extPrefix = AThelper.prefix;
     let userSelection = {};
 
-    const isDefendedFromCopying = document.querySelector('.noselect ');
+    const isDefendedFromCopying = document.querySelector('.noselect');
     if (isDefendedFromCopying) {
         return;
     }
@@ -108,6 +108,16 @@
             } else if (document.selection) { // IE
                 document.selection.empty();
             }
+
+            const typoIconPath = document.getElementById(`${extPrefix}typoIcon_path`);
+            typoIconPath.setAttribute('stroke', '#4CAF50');
+            setTimeout(() => {
+                if (AThelper.themeCurrent === 'dark') {
+                    typoIconPath.setAttribute('stroke', '#FFFFFF');
+                } else {
+                    typoIconPath.setAttribute('stroke', '#212121');
+                }
+            }, 1000);
         }
     }
 }(window.AThelper));
