@@ -77,47 +77,45 @@
 
         AThelper.modal.classList.add(`${extPrefix}d-block`);
         typoDescriptionInput.focus();
+    }
 
-
-
-        function saveUserSelection() {
-            if (!userSelection.selected) {
-                return;
-            }
-
-            userSelection.typoDescription = document.getElementById(`${extPrefix}typo-description`).value;
-            userSelection.chapterName = document.querySelector('h1').textContent;
-            const bookId = location.pathname.split('/')[2];
-            let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
-
-            if (!bookTypos) {
-                localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([userSelection]));
-            } else {
-                bookTypos = JSON.parse(bookTypos);
-                localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([...bookTypos, userSelection]));
-            }
-
-            AThelper.modal.classList.remove(`${extPrefix}d-block`);
-            userSelection = {};
-            if (window.getSelection) {
-                if (window.getSelection().empty) { // Chrome
-                    window.getSelection().empty();
-                } else if (window.getSelection().removeAllRanges) { // Firefox
-                    window.getSelection().removeAllRanges();
-                }
-            } else if (document.selection) { // IE
-                document.selection.empty();
-            }
-
-            const typoIconPath = document.getElementById(`${extPrefix}typoIcon_path`);
-            typoIconPath.setAttribute('stroke', '#4CAF50');
-            setTimeout(() => {
-                if (AThelper.themeCurrent === 'dark') {
-                    typoIconPath.setAttribute('stroke', '#FFFFFF');
-                } else {
-                    typoIconPath.setAttribute('stroke', '#212121');
-                }
-            }, 1000);
+    function saveUserSelection() {
+        if (!userSelection.selected) {
+            return;
         }
+
+        userSelection.typoDescription = document.getElementById(`${extPrefix}typo-description`).value;
+        userSelection.chapterName = document.querySelector('h1').textContent;
+        const bookId = location.pathname.split('/')[2];
+        let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
+
+        if (!bookTypos) {
+            localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([userSelection]));
+        } else {
+            bookTypos = JSON.parse(bookTypos);
+            localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([...bookTypos, userSelection]));
+        }
+
+        AThelper.modal.classList.remove(`${extPrefix}d-block`);
+        userSelection = {};
+        if (window.getSelection) {
+            if (window.getSelection().empty) { // Chrome
+                window.getSelection().empty();
+            } else if (window.getSelection().removeAllRanges) { // Firefox
+                window.getSelection().removeAllRanges();
+            }
+        } else if (document.selection) { // IE
+            document.selection.empty();
+        }
+
+        const typoIconPath = document.getElementById(`${extPrefix}typoIcon_path`);
+        typoIconPath.setAttribute('stroke', '#4CAF50');
+        setTimeout(() => {
+            if (AThelper.themeCurrent === 'dark') {
+                typoIconPath.setAttribute('stroke', '#FFFFFF');
+            } else {
+                typoIconPath.setAttribute('stroke', '#212121');
+            }
+        }, 1000);
     }
 }(window.AThelper));
