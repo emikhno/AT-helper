@@ -34,7 +34,7 @@
     // Set theme
     const themeToggle = document.getElementById(`${extPrefix}themeToggle`);
     themeToggle.addEventListener('click', () => {
-        if (!themeCurrent || themeCurrent === 'default') {
+        if (!AThelper.themeCurrent || AThelper.themeCurrent === 'default') {
             setDarkTheme();
         } else {
             setDefaultTheme();
@@ -42,8 +42,8 @@
     });
 
     const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
-    let themeCurrent = localStorage.getItem(`${extPrefix}theme`);
-    if (themeCurrent === 'dark' && !isMobileLayout) {
+    AThelper.themeCurrent = localStorage.getItem(`${extPrefix}theme`);
+    if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
         setDarkTheme();
     }
     if (isMobileLayout) {
@@ -91,9 +91,9 @@
 
 
     function setDarkTheme() {
-        if (themeCurrent !== 'dark') {
-            themeCurrent = 'dark';
-            localStorage.setItem(`${extPrefix}theme`, themeCurrent);
+        if (AThelper.themeCurrent !== 'dark') {
+            AThelper.themeCurrent = 'dark';
+            localStorage.setItem(`${extPrefix}theme`, AThelper.themeCurrent);
         }
 
         document.body.classList.add(`${extPrefix}theme_dark`);
@@ -103,8 +103,8 @@
     }
 
     function setDefaultTheme() {
-        themeCurrent = 'default';
-        localStorage.setItem(`${extPrefix}theme`, themeCurrent);
+        AThelper.themeCurrent = 'default';
+        localStorage.setItem(`${extPrefix}theme`, AThelper.themeCurrent);
 
         document.body.classList.remove(`${extPrefix}theme_dark`);
         document.getElementById('ic_fluent_dark_theme_24_filled').setAttribute('fill', '#212121');
