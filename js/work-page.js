@@ -18,7 +18,7 @@
         const typosListTitle = AThelper.modal.querySelector(`.${extPrefix}modal_title`);
         typosListTitle.textContent = browser.i18n.getMessage("typosText");
         const typosListBody = AThelper.modal.querySelector(`.${extPrefix}modal_body`);
-        typosListBody.innerHTML = '';
+        typosListBody.textContent = '';
         const typosListCopy = AThelper.modal.querySelector(`.${extPrefix}modal_actionMain`);
         typosListCopy.textContent = browser.i18n.getMessage("copyText");
         const typosListClear = AThelper.modal.querySelector(`.${extPrefix}modal_actionSecond`);
@@ -43,10 +43,21 @@
             typoElement.appendChild(chapterName);
 
             const typoBody = document.createElement('p');
-            typoBody.innerHTML = `${typo.start}<b>[***]${typo.selected}[***]</b>${typo.end}`;
+            const typoContextStart = document.createElement('span');
+            typoContextStart.textContent = typo.start;
+            typoBody.appendChild(typoContextStart);
+            const typoSelection = document.createElement('b');
+            typoSelection.textContent = `[***]${typo.selected}[***]`;
+            typoBody.appendChild(typoSelection);
+            const typoContextEnd = document.createElement('span');
+            typoContextEnd.textContent = typo.end;
+            typoBody.appendChild(typoContextEnd);
             // typosText += `${typo.start}[***]${typo.selected}[***]${typo.end}\n\n`;
             if (typo.typoDescription) {
-                typoBody.innerHTML += `<br><i>/${typo.typoDescription}/</i>`;
+                typoBody.appendChild(document.createElement('br'));
+                const typoDescription = document.createElement('i');
+                typoDescription.textContent = typo.typoDescription;
+                typoBody.appendChild(typoDescription);
                 // typosText += `/${typo.typoDescription}/\n\n`;
             }
             typoElement.appendChild(typoBody);
