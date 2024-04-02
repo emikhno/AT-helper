@@ -1,10 +1,11 @@
-(function (AThelper) {
+try {
+    const AThelper = window.AThelper;
     const extPrefix = AThelper.prefix;
     let userSelection = {};
 
-    const isDefendedFromCopying = document.querySelector('.noselect');
-    if (isDefendedFromCopying) {
-        return;
+    const isProtectedFromCopying = document.querySelector('.noselect');
+    if (isProtectedFromCopying) {
+        throw browser.i18n.getMessage('protectedFromCopying');
     }
 
     const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
@@ -36,14 +37,14 @@
         }
 
         const modalTitle = AThelper.modal.querySelector(`.${extPrefix}modal_title`);
-        modalTitle.textContent = browser.i18n.getMessage("typoText") + '?';
+        modalTitle.textContent = browser.i18n.getMessage('typoText') + '?';
 
         const modalBody = AThelper.modal.querySelector(`.${extPrefix}modal_body`);
         modalBody.textContent = '';
         const typoDescription = document.createElement('p');
         typoDescription.classList.add(`${extPrefix}text-center`);
         typoDescription.classList.add(`${extPrefix}font-italic`);
-        typoDescription.textContent = browser.i18n.getMessage("typoDescription");
+        typoDescription.textContent = browser.i18n.getMessage('typoDescription');
         modalBody.appendChild(typoDescription);
         const typoContext = document.createElement('p');
         const typoContextStart = document.createElement('span');
@@ -59,7 +60,7 @@
 
         const typoDescriptionInput = document.createElement('input');
         typoDescriptionInput.id = `${extPrefix}typo-description`;
-        typoDescriptionInput.placeholder =  browser.i18n.getMessage("describeTypoText");
+        typoDescriptionInput.placeholder =  browser.i18n.getMessage('describeTypoText');
         typoDescriptionInput.classList.add('form-control');
         typoDescriptionInput.classList.add(`${extPrefix}w-100`);
         typoDescriptionInput.addEventListener('keyup', (event) => {
@@ -70,7 +71,7 @@
         modalBody.appendChild(typoDescriptionInput);
 
         const modalSave = AThelper.modal.querySelector(`.${extPrefix}modal_actionMain`);
-        modalSave.textContent = browser.i18n.getMessage("saveText");
+        modalSave.textContent = browser.i18n.getMessage('saveText');
         modalSave.addEventListener('click', () => {
             saveUserSelection();
         });
@@ -87,14 +88,13 @@
         userSelection.typoDescription = document.getElementById(`${extPrefix}typo-description`).value;
         userSelection.chapterName = document.querySelector('h1').textContent;
         const bookId = location.pathname.split('/')[2];
-        let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
 
-        if (!bookTypos) {
-            localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([userSelection]));
-        } else {
-            bookTypos = JSON.parse(bookTypos);
-            localStorage.setItem(`${extPrefix}typos_${bookId}`, JSON.stringify([...bookTypos, userSelection]));
-        }
+        AThelper.db.transaction('typos', 'readwrite')
+                    .objectStore('typos')
+                    .put({
+                        'book_id': bookId,
+                        ...userSelection
+                    });
 
         AThelper.modal.classList.remove(`${extPrefix}d-block`);
         userSelection = {};
@@ -118,4 +118,6 @@
             }
         }, 1000);
     }
-}(window.AThelper));
+} catch (error) {
+    console.error('Error:', error);
+}

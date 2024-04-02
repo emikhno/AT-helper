@@ -1,9 +1,49 @@
-(function () {
+try {
     const AThelper = window.AThelper = {};
     const extPrefix = AThelper.prefix = 'AThelper__';
 
+    // Open Indexed Data Base
+    const openRequest = indexedDB.open('AThelper', 1);
+
+    openRequest.onerror = function () {
+        console.error('Error:', openRequest.error);
+    };
+
+    openRequest.onupgradeneeded = function () {
+        const db = openRequest.result;
+
+        if (!db.objectStoreNames.contains('settings')) {
+            db.createObjectStore('settings', {keyPath: 'name'});
+        }
+        if (!db.objectStoreNames.contains('books')) {
+            db.createObjectStore('books', {keyPath: 'id'});
+        }
+        if (!db.objectStoreNames.contains('typos')) {
+            const typos = db.createObjectStore('typos', {keyPath: 'id', autoIncrement: true});
+            typos.createIndex('book_index', 'book_id');
+        }
+        if (!db.objectStoreNames.contains('my_books_stats')) {
+            const booksStats = db.createObjectStore('my_books_stats', {keyPath: 'id', autoIncrement: true});
+            booksStats.createIndex('timestamp_index', 'timestamp');
+        }
+    };
+
+    openRequest.onsuccess = function () {
+        const db = AThelper.db = openRequest.result;
+        setTheme();
+
+        db.onversionchange = function () {
+            db.close();
+            console.warn(browser.i18n.getMessage('dbOnVersionChange'));
+        };
+
+        db.onerror = function (event) {
+            const request = event.target;
+            console.error('Error:', request.error);
+        };
+    };
+
     createMainMenu();
-    setTheme();
     createModalWindow();
 
 
@@ -19,20 +59,31 @@
         });
 
         const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
-        AThelper.themeCurrent = localStorage.getItem(`${extPrefix}theme`);
-        if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
-            setDarkTheme();
-        }
-        if (isMobileLayout) {
-            themeToggle.classList.add(`${extPrefix}d-none`);
-            document.body.classList.remove(`${extPrefix}theme_dark`);
+
+        const request = AThelper.db.transaction('settings')
+                                    .objectStore('settings')
+                                    .get('theme');
+        request.onsuccess = function() {
+            AThelper.themeCurrent = request.result ? request.result.value : null;
+            if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
+                setDarkTheme();
+            }
+            if (isMobileLayout) {
+                themeToggle.classList.add(`${extPrefix}d-none`);
+                document.body.classList.remove(`${extPrefix}theme_dark`);
+            }
         }
     }
 
     function setDarkTheme() {
         if (AThelper.themeCurrent !== 'dark') {
             AThelper.themeCurrent = 'dark';
-            localStorage.setItem(`${extPrefix}theme`, AThelper.themeCurrent);
+            AThelper.db.transaction('settings', 'readwrite')
+                        .objectStore('settings')
+                        .put({
+                            'name': 'theme',
+                            'value': 'dark'
+                        });
         }
 
         document.body.classList.add(`${extPrefix}theme_dark`);
@@ -43,7 +94,12 @@
 
     function setDefaultTheme() {
         AThelper.themeCurrent = 'default';
-        localStorage.setItem(`${extPrefix}theme`, AThelper.themeCurrent);
+        AThelper.db.transaction('settings', 'readwrite')
+                    .objectStore('settings')
+                    .put({
+                        'name': 'theme',
+                        'value': 'default'
+                    });
 
         document.body.classList.remove(`${extPrefix}theme_dark`);
         document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#212121');
@@ -65,7 +121,7 @@
         typoIcon.setAttribute('viewBox', '0 0 24 24');
         typoIcon.setAttribute('fill', 'none');
         const typoIconTitle = document.createElementNS(xmlns, 'title');
-        typoIconTitle.textContent = browser.i18n.getMessage("typoIconTitle");
+        typoIconTitle.textContent = browser.i18n.getMessage('typoIconTitle');
         typoIcon.appendChild(typoIconTitle);
         const typoIconPath = document.createElementNS(xmlns, 'path');
         typoIconPath.id = `${extPrefix}typoIcon_path`;
@@ -87,7 +143,7 @@
         typosList.setAttribute('viewBox', '0 0 24 24');
         typosList.setAttribute('fill', 'none');
         const typosListTitle = document.createElementNS(xmlns, 'title');
-        typosListTitle.textContent = browser.i18n.getMessage("typosListTitle");
+        typosListTitle.textContent = browser.i18n.getMessage('typosListTitle');
         typosList.appendChild(typosListTitle);
         const typosListPath = document.createElementNS(xmlns, 'path');
         typosListPath.id = `${extPrefix}typosList_path`;
@@ -107,7 +163,7 @@
         themeToggle.setAttribute('viewBox', '0 0 24 24');
         themeToggle.setAttribute('version', '1.1');
         const themeToggleTitle = document.createElementNS(xmlns, 'title');
-        themeToggleTitle.textContent = browser.i18n.getMessage("themeToggleTitle");
+        themeToggleTitle.textContent = browser.i18n.getMessage('themeToggleTitle');
         themeToggle.appendChild(themeToggleTitle);
         const themeToggleGOuter = document.createElementNS(xmlns, 'g');
         themeToggleGOuter.setAttribute('stroke', 'none');
@@ -169,7 +225,7 @@
         modalCloseButton.classList.add(`${extPrefix}modal_close`);
         modalCloseButton.classList.add('btn');
         modalCloseButton.classList.add('btn-gray');
-        modalCloseButton.textContent = browser.i18n.getMessage("closeText");
+        modalCloseButton.textContent = browser.i18n.getMessage('closeText');
         modalFooter.appendChild(modalCloseButton);
         modalContent.appendChild(modalFooter);
 
@@ -194,4 +250,6 @@
             }
         });
     }
-}());
+} catch (error) {
+    console.error('Error:', error);
+}

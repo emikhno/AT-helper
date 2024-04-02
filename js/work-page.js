@@ -1,29 +1,44 @@
-(function (AThelper) {
+try {
+    const AThelper = window.AThelper;
     const extPrefix = AThelper.prefix;
     const bookId = location.pathname.split('/')[2];
-    let bookTypos = localStorage.getItem(`${extPrefix}typos_${bookId}`);
     const typosList = document.getElementById(`${extPrefix}typosList`);
+    let bookTypos = [];
 
-    if (bookTypos) {
-        bookTypos = JSON.parse(bookTypos);
-        typosList.classList.add(`${extPrefix}d-block`);
-        typosList.addEventListener('click', () => {
-            openListModal();
-        });
+    const request = AThelper.db.transaction('typos')
+                                .objectStore('typos')
+                                .index('book_index')
+                                .getAll(bookId);
+    request.onsuccess = function () {
+        bookTypos = request.result;
+
+        if (bookTypos.length > 0) {
+            typosList.classList.add(`${extPrefix}d-block`);
+            typosList.addEventListener('click', () => {
+                openListModal();
+            });
+
+            AThelper.db.transaction('books', 'readwrite')
+                        .objectStore('books')
+                        .put({
+                            'id': bookId,
+                            'title': document.querySelector('h1').innerText
+                        });
+        }
     }
 
 
 
     function openListModal() {
         const typosListTitle = AThelper.modal.querySelector(`.${extPrefix}modal_title`);
-        typosListTitle.textContent = browser.i18n.getMessage("typosText");
+        typosListTitle.textContent = browser.i18n.getMessage('typosText');
         const typosListBody = AThelper.modal.querySelector(`.${extPrefix}modal_body`);
         typosListBody.textContent = '';
         const typosListCopy = AThelper.modal.querySelector(`.${extPrefix}modal_actionMain`);
-        typosListCopy.textContent = browser.i18n.getMessage("copyText");
+        typosListCopy.textContent = browser.i18n.getMessage('copyText');
         const typosListClear = AThelper.modal.querySelector(`.${extPrefix}modal_actionSecond`);
         typosListClear.classList.add(`${extPrefix}d-block`)
-        typosListClear.textContent = browser.i18n.getMessage("clearText");
+        typosListClear.textContent = browser.i18n.getMessage('clearText');
 
         let prevChapter = '';
         // let typosText = '';
@@ -88,9 +103,14 @@
         });
 
         typosListClear.addEventListener('click', () => {
-            const result = confirm(browser.i18n.getMessage("clearConfirm"));
+            const result = confirm(browser.i18n.getMessage('clearConfirm'));
             if (result) {
-                localStorage.removeItem(`${extPrefix}typos_${bookId}`);
+                bookTypos.forEach(typo => {
+                    AThelper.db.transaction('typos', 'readwrite')
+                                .objectStore('typos')
+                                .delete(typo.id);
+                });
+
                 typosList.classList.remove(`${extPrefix}d-block`);
                 AThelper.modal.classList.remove(`${extPrefix}d-block`);
             }
@@ -98,4 +118,6 @@
 
         AThelper.modal.classList.add(`${extPrefix}d-block`);
     }
-}(window.AThelper));
+} catch (error) {
+    console.error('Error:', error);
+}

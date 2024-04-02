@@ -72,5 +72,15 @@
   "lastScanText": {
     "message": "Last scan date:",
     "description": "Some text."
+  },
+
+  "dbOnVersionChange": {
+    "message": "The database is out of date, please reload the page.",
+    "description": "Warning."
+  },
+
+  "protectedFromCopying": {
+    "message": "The text of this book is copy protected.",
+    "description": "Warning."
   }
 }
