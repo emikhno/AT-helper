@@ -72,5 +72,15 @@
   "lastScanText": {
     "message": "Последнее сканирование:",
     "description": "Текст."
+  },
+
+  "dbOnVersionChange": {
+    "message": "База данных устарела, пожалуйста, перезагрузите страницу.",
+    "description": "Предупреждение."
+  },
+
+  "protectedFromCopying": {
+    "message": "Текст книги защищён от копирования.",
+    "description": "Предупреждение."
   }
 }
