@@ -8,7 +8,9 @@
   "default_locale": "ru",
 
   "icons": {
+    "32": "icons/at-32.png",
     "48": "icons/at-48.png",
+    "64": "icons/at-64.png",
     "96": "icons/at-96.png"
   },
 
@@ -40,6 +42,21 @@
       "js": ["js/work-page.js"]
     }
   ],
+
+  "action": {
+    "default_icon": {
+      "16": "icons/at-16.png",
+      "24": "icons/at-24.png",
+      "32": "icons/at-32.png"
+    },
+    "default_title": "AT helper",
+    "default_popup": "popup/index.html"
+  },
+
+  "developer": {
+    "name": "Egor Mikhno",
+    "url": "https://github.com/emikhno/AT-helper"
+  },
 
   "browser_specific_settings": {
     "gecko": {

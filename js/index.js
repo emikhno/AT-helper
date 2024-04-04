@@ -46,7 +46,30 @@ try {
     createMainMenu();
     createModalWindow();
 
+    browser.runtime.onMessage.addListener(handlePrivilegedRequests);
 
+
+
+    function handlePrivilegedRequests(request, sender, response) {
+        switch (request.message) {
+            case 'getTheme':
+                response({
+                    'message': AThelper.themeCurrent
+                })
+                break;
+            case 'setTheme':
+                if (request.value === 'dark') {
+                    setDarkTheme();
+                } else {
+                    setDefaultTheme();
+                }
+                break;
+            default: response({
+                'message': 'Unknown request'
+            });
+        }
+        // console.log(request.message)
+    }
 
     function setTheme() {
         const themeToggle = document.getElementById(`${extPrefix}themeToggle`);
@@ -60,11 +83,11 @@ try {
 
         const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
 
-        const request = AThelper.db.transaction('settings')
-                                    .objectStore('settings')
-                                    .get('theme');
-        request.onsuccess = function() {
-            AThelper.themeCurrent = request.result ? request.result.value : null;
+        const getThemeRequest = AThelper.db.transaction('settings')
+                                            .objectStore('settings')
+                                            .get('theme');
+        getThemeRequest.onsuccess = function() {
+            AThelper.themeCurrent = getThemeRequest.result ? getThemeRequest.result.value : null;
             if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
                 setDarkTheme();
             }
