@@ -1,0 +1,55 @@
+body {
+	width: 250px;
+}
+
+.theme_dark {
+	background-color: #212121;
+	color: #FFFFFF;
+}
+
+h2 {
+	margin: 0;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.mx-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.my-5 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.mr-2 {
+	margin-right: 8px;
+}
+
+.align-self-center {
+	align-self: center;
+}
+
+.align-self-end {
+	align-self: end;
+}
+
+.cursor {
+	cursor: pointer;
+}
+
+
+.with-100 {
+	width: 100%;
+}
+
+.float-right {
+	float: right;
+}
