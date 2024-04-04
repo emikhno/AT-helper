@@ -5,12 +5,12 @@ try {
     const typosList = document.getElementById(`${extPrefix}typosList`);
     let bookTypos = [];
 
-    const request = AThelper.db.transaction('typos')
-                                .objectStore('typos')
-                                .index('book_index')
-                                .getAll(bookId);
-    request.onsuccess = function () {
-        bookTypos = request.result;
+    const getBookTyposRequest = AThelper.db.transaction('typos')
+                                            .objectStore('typos')
+                                            .index('book_index')
+                                            .getAll(bookId);
+    getBookTyposRequest.onsuccess = function () {
+        bookTypos = getBookTyposRequest.result;
 
         if (bookTypos.length > 0) {
             typosList.classList.add(`${extPrefix}d-block`);
