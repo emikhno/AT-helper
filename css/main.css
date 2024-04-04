@@ -1229,3 +1229,11 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .comments .highlighted {
     background-color: #000000;
 }
+
+.AThelper__theme_dark .feed-row.is-new .comment:hover {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .drop-element.drop-theme-arrows.drop-element-attached-bottom.drop-element-attached-center.drop-view-comment .drop-content {
+    background-color: #000000;
+}
