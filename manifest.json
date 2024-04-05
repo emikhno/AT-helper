@@ -56,10 +56,8 @@
     "default_popup": "popup/index.html"
   },
 
-  "developer": {
-    "name": "Egor Mikhno",
-    "url": "https://github.com/emikhno/AT-helper"
-  },
+  "author": "Egor Mikhno",
+  "homepage_url": "https://github.com/emikhno/AT-helper",
 
   "browser_specific_settings": {
     "gecko": {
