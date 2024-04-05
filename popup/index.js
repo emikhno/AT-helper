@@ -1,6 +1,7 @@
 const themeDefault = document.getElementById('themeDefault');
 const themeDark = document.getElementById('themeDark');
 const typosList = document.getElementById('typosList');
+const errorMessage = document.getElementById('errorMessage');
 
 browser.tabs.query({
     url: 'https://author.today/*'
@@ -14,7 +15,7 @@ browser.tabs.query({
             }
         )
     } else {
-        throw 'NoAuthorTodayTabs';
+        throw browser.i18n.getMessage('noAuthorTodayTabs');
     }
 }).then((response) => {
     if (response && response.message === 'dark') {
@@ -25,7 +26,10 @@ browser.tabs.query({
 }).catch(error => {
     themeDefault.disabled = true;
     themeDark.disabled = true;
-    console.error('Error:', error)
+    typosList.classList.remove('cursor');
+    console.error('Error:', error);
+    errorMessage.textContent = error;
+    errorMessage.classList.remove('d-none');
 });
 
 themeDefault.addEventListener('click', (event) => {
@@ -37,6 +41,8 @@ themeDark.addEventListener('click', (event) => {
     setThemeRequest('dark');
     setDarkTheme();
 });
+
+
 
 function setThemeRequest(theme) {
     browser.tabs.query({
@@ -52,9 +58,13 @@ function setThemeRequest(theme) {
                 }
             )
         } else {
-            throw 'NoAuthorTodayTabs';
+            throw browser.i18n.getMessage('noAuthorTodayTabs');
         }
-    }).catch(error => console.error('Error:', error));
+    }).catch(error => {
+        console.error('Error:', error);
+        errorMessage.textContent = error;
+        errorMessage.classList.remove('d-none');
+    });
 }
 
 function setDarkTheme() {

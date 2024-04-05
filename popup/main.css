@@ -7,6 +7,10 @@ body {
 	color: #FFFFFF;
 }
 
+.error {
+	color: #F44336;
+}
+
 h2 {
 	margin: 0;
 }
@@ -17,6 +21,10 @@ h2 {
 
 .d-flex {
 	display: flex;
+}
+
+.d-none {
+	display: none;
 }
 
 .mx-auto {

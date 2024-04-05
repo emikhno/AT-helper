@@ -82,5 +82,15 @@
   "protectedFromCopying": {
     "message": "The text of this book is copy protected.",
     "description": "Warning."
+  },
+
+  "NoAuthorTodayTabs": {
+    "message": "At least one tab with author.today must be open.",
+    "description": "Error."
+  },
+
+  "unknownRequest": {
+    "message": "Unknown command or request.",
+    "description": "Some text."
   }
 }
