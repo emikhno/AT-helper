@@ -65,7 +65,7 @@ try {
                 }
                 break;
             default: response({
-                'message': 'Unknown request'
+                'message': browser.i18n.getMessage('unknownRequest')
             });
         }
         // console.log(request.message)

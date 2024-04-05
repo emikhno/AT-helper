@@ -82,5 +82,15 @@
   "protectedFromCopying": {
     "message": "Текст книги защищён от копирования.",
     "description": "Предупреждение."
+  },
+
+  "noAuthorTodayTabs": {
+    "message": "Должна быть открыта хотя бы одна вкладка с сайтом author.today.",
+    "description": "Ошибка."
+  },
+
+  "unknownRequest": {
+    "message": "Неизвестная команда или запрос.",
+    "description": "Текст."
   }
 }
