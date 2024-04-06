@@ -2,63 +2,14 @@ try {
     const AThelper = window.AThelper = {};
     const extPrefix = AThelper.prefix = 'AThelper__';
 
-    // Open Indexed Data Base
-    const openRequest = indexedDB.open('AThelper', 1);
-
-    openRequest.onerror = function () {
-        console.error('Error:', openRequest.error);
-    };
-
-    openRequest.onupgradeneeded = function () {
-        const db = openRequest.result;
-
-        if (!db.objectStoreNames.contains('settings')) {
-            db.createObjectStore('settings', {keyPath: 'name'});
-        }
-        if (!db.objectStoreNames.contains('books')) {
-            db.createObjectStore('books', {keyPath: 'id'});
-        }
-        if (!db.objectStoreNames.contains('typos')) {
-            const typos = db.createObjectStore('typos', {keyPath: 'id', autoIncrement: true});
-            typos.createIndex('book_index', 'book_id');
-        }
-        if (!db.objectStoreNames.contains('my_books_stats')) {
-            const booksStats = db.createObjectStore('my_books_stats', {keyPath: 'id', autoIncrement: true});
-            booksStats.createIndex('timestamp_index', 'timestamp');
-        }
-    };
-
-    openRequest.onsuccess = function () {
-        const db = AThelper.db = openRequest.result;
-        setTheme();
-
-        db.onversionchange = function () {
-            db.close();
-            console.warn(browser.i18n.getMessage('dbOnVersionChange'));
-        };
-
-        db.onerror = function (event) {
-            const request = event.target;
-            console.error('Error:', request.error);
-        };
-    };
-
     createMainMenu();
+    setTheme();
     createModalWindow();
 
-    browser.runtime.onMessage.addListener(handlePrivilegedRequests);
-
-
-
-    function handlePrivilegedRequests(request, sender, response) {
+    browser.runtime.onMessage.addListener((request, sender, response) => {
         switch (request.message) {
-            case 'getTheme':
-                response({
-                    'message': AThelper.themeCurrent
-                })
-                break;
             case 'setTheme':
-                if (request.value === 'dark') {
+                if (request.payload === 'dark') {
                     setDarkTheme();
                 } else {
                     setDefaultTheme();
@@ -68,8 +19,9 @@ try {
                 'message': browser.i18n.getMessage('unknownRequest')
             });
         }
-        // console.log(request.message)
-    }
+    });
+
+
 
     function setTheme() {
         const themeToggle = document.getElementById(`${extPrefix}themeToggle`);
@@ -83,11 +35,10 @@ try {
 
         const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
 
-        const getThemeRequest = AThelper.db.transaction('settings')
-                                            .objectStore('settings')
-                                            .get('theme');
-        getThemeRequest.onsuccess = function() {
-            AThelper.themeCurrent = getThemeRequest.result ? getThemeRequest.result.value : null;
+        browser.runtime.sendMessage({
+            message: 'getTheme'
+        }).then(response => {
+            AThelper.themeCurrent = response;
             if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
                 setDarkTheme();
             }
@@ -95,18 +46,20 @@ try {
                 themeToggle.classList.add(`${extPrefix}d-none`);
                 document.body.classList.remove(`${extPrefix}theme_dark`);
             }
-        }
+        }).catch((error) => {
+            console.error(error);
+        });
     }
 
     function setDarkTheme() {
         if (AThelper.themeCurrent !== 'dark') {
             AThelper.themeCurrent = 'dark';
-            AThelper.db.transaction('settings', 'readwrite')
-                        .objectStore('settings')
-                        .put({
-                            'name': 'theme',
-                            'value': 'dark'
-                        });
+            browser.runtime.sendMessage({
+                message: 'setTheme',
+                payload: 'dark'
+            }).catch((error) => {
+                console.error(error);
+            });
         }
 
         document.body.classList.add(`${extPrefix}theme_dark`);
@@ -116,18 +69,18 @@ try {
     }
 
     function setDefaultTheme() {
-        AThelper.themeCurrent = 'default';
-        AThelper.db.transaction('settings', 'readwrite')
-                    .objectStore('settings')
-                    .put({
-                        'name': 'theme',
-                        'value': 'default'
-                    });
-
-        document.body.classList.remove(`${extPrefix}theme_dark`);
-        document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#212121');
-        document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#212121');
-        document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#212121');
+        browser.runtime.sendMessage({
+            message: 'setTheme',
+            payload: 'default'
+        }).then(() => {
+            AThelper.themeCurrent = 'default';
+            document.body.classList.remove(`${extPrefix}theme_dark`);
+            document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#212121');
+            document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#212121');
+            document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#212121');
+        }).catch((error) => {
+            console.error(error);
+        });
     }
 
     function createMainMenu() {
