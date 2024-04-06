@@ -53,6 +53,10 @@
     "default_popup": "popup/index.html"
   },
 
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+
   "author": "Egor Mikhno",
   "homepage_url": "https://github.com/emikhno/AT-helper",
 
