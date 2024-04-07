@@ -1,6 +1,8 @@
 try {
+    const AThelper = window.AThelper;
+    const extPrefix = AThelper.prefix;
     const books = document.querySelectorAll('.book-row');
-    const now = new Date().getTime();
+    const now = Date.now();
     const dateOptions = {
         year: 'numeric',
         month: 'long',
@@ -23,12 +25,51 @@ try {
 
         if (timestamps.length > 0) {
             const timestampLast = timestamps[timestamps.length - 1];
-            const dateLast = new Date(timestampLast).toLocaleString("ru", dateOptions);
+
+            // Create date selector
             const showLastDate = document.createElement('div');
             showLastDate.style.marginBottom = '10px';
-            showLastDate.textContent = browser.i18n.getMessage('lastScanText') + ' ' + dateLast;
+            showLastDate.textContent = browser.i18n.getMessage('lastScanText') + ' ';
+
+            const dateSelector = document.createElement('select');
+            dateSelector.classList.add('form-control');
+            dateSelector.style.width = '25%';
+            dateSelector.style.display = 'inline';
+
+            const oneDay = 1000*60*60*24;
+            timestamps.forEach(timestamp => {
+                if ((now - timestamp)/oneDay > 30) {
+                    browser.runtime.sendMessage({
+                        message: 'deleteMyBooksStats',
+                        payload: timestamp
+                    });
+                    return;
+                }
+
+                const dateSelectorOption = document.createElement('option');
+                dateSelectorOption.value = timestamp;
+                dateSelectorOption.textContent = new Date(timestamp).toLocaleString("ru", dateOptions);
+                if (timestamp === timestampLast) {
+                    dateSelectorOption.selected = true;
+                }
+                dateSelector.prepend(dateSelectorOption);
+            });
+
+            dateSelector.addEventListener('change', (event) => {
+                browser.runtime.sendMessage({
+                    message: 'getMyBooksStats',
+                    payload: +event.target.value
+                }).then((response) => {
+                    handleBooksStats(response, false);
+                }).catch((error) => {
+                    console.error(error);
+                });
+            });
+
+            showLastDate.appendChild(dateSelector);
             document.getElementById('search-results').prepend(showLastDate);
 
+            // Get last timestamp data
             return browser.runtime.sendMessage({
                 message: 'getMyBooksStats',
                 payload: timestampLast
@@ -42,7 +83,7 @@ try {
 
 
 
-    function handleBooksStats(dataLast = null) {
+    function handleBooksStats(dataLast = null, shouldUpdateDB = true) {
         const dataCurrent = {
             timestamp: now,
             data: []
@@ -61,17 +102,24 @@ try {
             }
         }
 
-        browser.runtime.sendMessage({
-            message: 'saveMyBooksStats',
-            payload: dataCurrent
-        }).catch((error) => {
-            console.error(error);
-        });
+        if (shouldUpdateDB) {
+            browser.runtime.sendMessage({
+                message: 'saveMyBooksStats',
+                payload: dataCurrent
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
     }
 
     function handleBookStat(book, statsLast, statNameEnglish) {
         const statElement = book.querySelector('[data-hint="' + statsMap.get(statNameEnglish) + '"]');
-        let statCurrent = statElement.outerText;
+        const diffElementOld = statElement.querySelector(`.${extPrefix}statDiff`);
+        if (diffElementOld) {
+            diffElementOld.remove();
+        }
+
+        let statCurrent = statElement.textContent;
         const isShortStatK = statCurrent.search(/\d+K$/) !== -1;
         const isShortStatM = statCurrent.search(/\d+М$/) !== -1;
         statCurrent = statCurrent.replace(/\D/g, '');
@@ -89,6 +137,7 @@ try {
             }
 
             const diffElement = document.createElement('span');
+            diffElement.classList.add(`${extPrefix}statDiff`)
             diffElement.style.color = diff > 0 ? '#4CAF50' : (diff < 0 ? '#F44336' : '#757575');
             diffElement.textContent = '(' + (diff > 0 ? '+' : '') + diff + ')';
             statElement.appendChild(diffElement);
