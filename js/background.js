@@ -26,6 +26,8 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
             return getMyBooksStats(request.payload);
         case 'saveMyBooksStats':
             return saveMyBooksStats(request.payload);
+        case 'deleteMyBooksStats':
+            return deleteMyBooksStats(request.payload);
 
         default:
             sendResponse({
@@ -245,6 +247,26 @@ function saveMyBooksStats(stats) {
         const transaction = db.transaction('my_books_stats', 'readwrite')
         transaction.objectStore('my_books_stats')
                     .put(stats);
+
+        return new Promise((resolve, reject) => {
+            transaction.oncomplete = function() {
+                resolve(true);
+            }
+
+            transaction.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function deleteMyBooksStats(timestamp) {
+    if (db) {
+        const transaction = db.transaction('my_books_stats', 'readwrite')
+        transaction.objectStore('my_books_stats')
+                    .delete(timestamp);
 
         return new Promise((resolve, reject) => {
             transaction.oncomplete = function() {
