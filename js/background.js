@@ -8,7 +8,25 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
         case 'getTheme':
             return getTheme();
         case 'setTheme':
-            return setTheme(request.payload)
+            return setTheme(request.payload);
+
+        case 'saveTypo':
+            return saveTypo(request.payload);
+        case 'deleteTypo':
+            return deleteTypo(request.payload);
+        case 'getBookTypos':
+            return getBookTypos(request.payload);
+
+        case 'saveBook':
+            return saveBook(request.payload);
+
+        case 'getMyBooksStatsTimestamps':
+            return getMyBooksStatsTimestamps();
+        case 'getMyBooksStats':
+            return getMyBooksStats(request.payload);
+        case 'saveMyBooksStats':
+            return saveMyBooksStats(request.payload);
+
         default:
             sendResponse({
                 'message': browser.i18n.getMessage('unknownRequest')
@@ -39,8 +57,7 @@ function openDB() {
             typos.createIndex('book_index', 'book_id');
         }
         if (!db.objectStoreNames.contains('my_books_stats')) {
-            const booksStats = db.createObjectStore('my_books_stats', {keyPath: 'id', autoIncrement: true});
-            booksStats.createIndex('timestamp_index', 'timestamp');
+            db.createObjectStore('my_books_stats', {keyPath: 'timestamp'});
         }
     };
 
@@ -67,12 +84,10 @@ function getTheme() {
 
         return new Promise((resolve, reject) => {
             request.onsuccess = function() {
-                console.log(1)
                 resolve(request.result ? request.result.value : null);
             }
 
             request.onerror = function(event) {
-                console.log(2)
                 reject(event);
             }
         });
@@ -89,6 +104,147 @@ function setTheme(value) {
                         'name': 'theme',
                         'value': value
                     });
+
+        return new Promise((resolve, reject) => {
+            transaction.oncomplete = function() {
+                resolve(true);
+            }
+
+            transaction.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function saveTypo(typo) {
+    if (db) {
+        const transaction = db.transaction('typos', 'readwrite');
+        transaction.objectStore('typos')
+                    .put(typo);
+
+        return new Promise((resolve, reject) => {
+            transaction.oncomplete = function() {
+                resolve(true);
+            }
+
+            transaction.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function deleteTypo(typoId) {
+    if (db) {
+        const transaction = db.transaction('typos', 'readwrite');
+        transaction.objectStore('typos')
+                    .delete(typoId);
+
+        return new Promise((resolve, reject) => {
+            transaction.oncomplete = function() {
+                resolve(true);
+            }
+
+            transaction.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function getBookTypos(bookId) {
+    if (db) {
+        const request = db.transaction('typos')
+                            .objectStore('typos')
+                            .index('book_index')
+                            .getAll(bookId);
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = function() {
+                resolve(request.result);
+            }
+
+            request.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function saveBook(book) {
+    if (db) {
+        const transaction = db.transaction('books', 'readwrite');
+        transaction.objectStore('books')
+                    .put(book);
+
+        return new Promise((resolve, reject) => {
+            transaction.oncomplete = function() {
+                resolve(true);
+            }
+
+            transaction.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function getMyBooksStatsTimestamps() {
+    if (db) {
+        const request = db.transaction('my_books_stats')
+                            .objectStore('my_books_stats')
+                            .getAllKeys();
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = function() {
+                resolve(request.result);
+            }
+
+            request.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function getMyBooksStats(timestamp) {
+    if (db) {
+        const request = db.transaction('my_books_stats')
+                            .objectStore('my_books_stats')
+                            .get(timestamp);
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = function() {
+                resolve(request.result ? request.result.data : null);
+            }
+
+            request.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function saveMyBooksStats(stats) {
+    if (db) {
+        const transaction = db.transaction('my_books_stats', 'readwrite')
+        transaction.objectStore('my_books_stats')
+                    .put(stats);
 
         return new Promise((resolve, reject) => {
             transaction.oncomplete = function() {

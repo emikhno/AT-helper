@@ -5,12 +5,11 @@ try {
     const typosList = document.getElementById(`${extPrefix}typosList`);
     let bookTypos = [];
 
-    const getBookTyposRequest = AThelper.db.transaction('typos')
-                                            .objectStore('typos')
-                                            .index('book_index')
-                                            .getAll(bookId);
-    getBookTyposRequest.onsuccess = function () {
-        bookTypos = getBookTyposRequest.result;
+    browser.runtime.sendMessage({
+        message: 'getBookTypos',
+        payload: bookId
+    }).then((response) => {
+        bookTypos = response;
 
         if (bookTypos.length > 0) {
             typosList.classList.add(`${extPrefix}d-block`);
@@ -18,14 +17,17 @@ try {
                 openListModal();
             });
 
-            AThelper.db.transaction('books', 'readwrite')
-                        .objectStore('books')
-                        .put({
-                            'id': bookId,
-                            'title': document.querySelector('h1').innerText
-                        });
+            browser.runtime.sendMessage({
+                message: 'saveBook',
+                payload: {
+                    'id': bookId,
+                    'title': document.querySelector('h1').innerText
+                }
+            });
         }
-    }
+    }).catch((error) => {
+        console.error(error);
+    });
 
 
 
@@ -106,9 +108,12 @@ try {
             const result = confirm(browser.i18n.getMessage('clearConfirm'));
             if (result) {
                 bookTypos.forEach(typo => {
-                    AThelper.db.transaction('typos', 'readwrite')
-                                .objectStore('typos')
-                                .delete(typo.id);
+                    browser.runtime.sendMessage({
+                        message: 'deleteTypo',
+                        payload: typo.id
+                    }).catch((error) => {
+                        console.error(error);
+                    });
                 });
 
                 typosList.classList.remove(`${extPrefix}d-block`);

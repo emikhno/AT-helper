@@ -89,34 +89,37 @@ try {
         userSelection.chapterName = document.querySelector('h1').textContent;
         const bookId = location.pathname.split('/')[2];
 
-        AThelper.db.transaction('typos', 'readwrite')
-                    .objectStore('typos')
-                    .put({
-                        'book_id': bookId,
-                        ...userSelection
-                    });
-
-        AThelper.modal.classList.remove(`${extPrefix}d-block`);
-        userSelection = {};
-        if (window.getSelection) {
-            if (window.getSelection().empty) { // Chrome
-                window.getSelection().empty();
-            } else if (window.getSelection().removeAllRanges) { // Firefox
-                window.getSelection().removeAllRanges();
+        browser.runtime.sendMessage({
+            message: 'saveTypo',
+            payload: {
+                'book_id': bookId,
+                ...userSelection
             }
-        } else if (document.selection) { // IE
-            document.selection.empty();
-        }
-
-        const typoIconPath = document.getElementById(`${extPrefix}typoIcon_path`);
-        typoIconPath.setAttribute('stroke', '#4CAF50');
-        setTimeout(() => {
-            if (AThelper.themeCurrent === 'dark') {
-                typoIconPath.setAttribute('stroke', '#FFFFFF');
-            } else {
-                typoIconPath.setAttribute('stroke', '#212121');
+        }).then(() => {
+            AThelper.modal.classList.remove(`${extPrefix}d-block`);
+            userSelection = {};
+            if (window.getSelection) {
+                if (window.getSelection().empty) { // Chrome
+                    window.getSelection().empty();
+                } else if (window.getSelection().removeAllRanges) { // Firefox
+                    window.getSelection().removeAllRanges();
+                }
+            } else if (document.selection) { // IE
+                document.selection.empty();
             }
-        }, 1000);
+
+            const typoIconPath = document.getElementById(`${extPrefix}typoIcon_path`);
+            typoIconPath.setAttribute('stroke', '#4CAF50');
+            setTimeout(() => {
+                if (AThelper.themeCurrent === 'dark') {
+                    typoIconPath.setAttribute('stroke', '#FFFFFF');
+                } else {
+                    typoIconPath.setAttribute('stroke', '#212121');
+                }
+            }, 1000);
+        }).catch((error) => {
+            console.error(error);
+        });
     }
 } catch (error) {
     console.error('Error:', error);
