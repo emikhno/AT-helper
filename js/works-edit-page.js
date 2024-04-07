@@ -1,5 +1,4 @@
 try {
-    const AThelper = window.AThelper;
     const books = document.querySelectorAll('.book-row');
     const now = new Date().getTime();
     const dateOptions = {
@@ -17,52 +16,57 @@ try {
     statsMap.set('libs', 'Добавили в библиотеку');
     statsMap.set('comments', 'Комментарии');
 
-    const getLastTimestampRequest = AThelper.db.transaction('my_books_stats')
-                                                .objectStore('my_books_stats')
-                                                .openCursor(null, 'prev');
-    getLastTimestampRequest.onsuccess = function () {
-        const cursor = getLastTimestampRequest.result;
+    browser.runtime.sendMessage({
+        message: 'getMyBooksStatsTimestamps'
+    }).then(response => {
+        const timestamps = response;
 
-        if (cursor !== null) {
-            const timestampLast = cursor.value.timestamp;
+        if (timestamps.length > 0) {
+            const timestampLast = timestamps[timestamps.length - 1];
             const dateLast = new Date(timestampLast).toLocaleString("ru", dateOptions);
             const showLastDate = document.createElement('div');
             showLastDate.style.marginBottom = '10px';
             showLastDate.textContent = browser.i18n.getMessage('lastScanText') + ' ' + dateLast;
             document.getElementById('search-results').prepend(showLastDate);
 
-            const getLastBooksStatsRequest = AThelper.db.transaction('my_books_stats')
-                                                        .objectStore('my_books_stats')
-                                                        .index('timestamp_index')
-                                                        .getAll(timestampLast);
-            getLastBooksStatsRequest.onsuccess = function () {
-                const dataLast = getLastBooksStatsRequest.result;
-                handleBooksStats(dataLast);
-            }
-        } else {
-            handleBooksStats();
+            return browser.runtime.sendMessage({
+                message: 'getMyBooksStats',
+                payload: timestampLast
+            });
         }
-    }
+    }).then((response) => {
+        handleBooksStats(response);
+    }).catch((error) => {
+        console.error(error);
+    });
 
 
 
     function handleBooksStats(dataLast = null) {
+        const dataCurrent = {
+            timestamp: now,
+            data: []
+        }
+
         for (let i = 0; i < books.length; i++) {
+            dataCurrent.data[i] = {};
+
             const bookTitle = books[i].querySelector('.book-title a').textContent;
-            const dataCurrent = {
-                timestamp: now,
-                book_title: bookTitle
-            }
+            dataCurrent.data[i].book_title = bookTitle;
+
             const statsLast = dataLast ? dataLast.find(book => book.book_title === bookTitle) : null;
 
             for (let statNameEnglish of statsMap.keys()) {
-                dataCurrent[statNameEnglish] = handleBookStat(books[i], statsLast, statNameEnglish);
+                dataCurrent.data[i][statNameEnglish] = handleBookStat(books[i], statsLast, statNameEnglish);
             }
-
-            AThelper.db.transaction('my_books_stats', 'readwrite')
-                        .objectStore('my_books_stats')
-                        .put(dataCurrent);
         }
+
+        browser.runtime.sendMessage({
+            message: 'saveMyBooksStats',
+            payload: dataCurrent
+        }).catch((error) => {
+            console.error(error);
+        });
     }
 
     function handleBookStat(book, statsLast, statNameEnglish) {
