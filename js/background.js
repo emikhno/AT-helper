@@ -8,8 +8,25 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
         case 'getTheme':
             return getTheme();
         case 'setTheme':
-            return setTheme(request.payload);
-
+            const setThemeRequest = setTheme(request.payload);
+            setThemeRequest.then(() => {
+                return browser.tabs.query({
+                    url: 'https://author.today/*'
+                });
+            }).then((response) => {
+                response.forEach((tab) => {
+                    browser.tabs.sendMessage(
+                        tab.id,
+                        {
+                            message: 'applyTheme',
+                            payload: request.payload
+                        }
+                    )
+                });
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+            break;
         case 'saveTypo':
             return saveTypo(request.payload);
         case 'deleteTypo':

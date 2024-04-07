@@ -8,11 +8,11 @@ try {
 
     browser.runtime.onMessage.addListener((request, sender, response) => {
         switch (request.message) {
-            case 'setTheme':
+            case 'applyTheme':
                 if (request.payload === 'dark') {
-                    setDarkTheme();
+                    applyDarkTheme();
                 } else {
-                    setDefaultTheme();
+                    applyDefaultTheme();
                 }
                 break;
             default: response({
@@ -27,9 +27,19 @@ try {
         const themeToggle = document.getElementById(`${extPrefix}themeToggle`);
         themeToggle.addEventListener('click', () => {
             if (!AThelper.themeCurrent || AThelper.themeCurrent === 'default') {
-                setDarkTheme();
+                browser.runtime.sendMessage({
+                    message: 'setTheme',
+                    payload: 'dark'
+                }).catch((error) => {
+                    console.error(error);
+                });
             } else {
-                setDefaultTheme();
+                browser.runtime.sendMessage({
+                    message: 'setTheme',
+                    payload: 'default'
+                }).catch((error) => {
+                    console.error(error);
+                });
             }
         });
 
@@ -40,7 +50,7 @@ try {
         }).then(response => {
             AThelper.themeCurrent = response;
             if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
-                setDarkTheme();
+                applyDarkTheme();
             }
             if (isMobileLayout) {
                 themeToggle.classList.add(`${extPrefix}d-none`);
@@ -51,36 +61,20 @@ try {
         });
     }
 
-    function setDarkTheme() {
-        if (AThelper.themeCurrent !== 'dark') {
-            AThelper.themeCurrent = 'dark';
-            browser.runtime.sendMessage({
-                message: 'setTheme',
-                payload: 'dark'
-            }).catch((error) => {
-                console.error(error);
-            });
-        }
-
+    function applyDarkTheme() {
+        AThelper.themeCurrent = 'dark';
         document.body.classList.add(`${extPrefix}theme_dark`);
         document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#FFFFFF');
         document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#FFFFFF');
         document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#FFFFFF');
     }
 
-    function setDefaultTheme() {
-        browser.runtime.sendMessage({
-            message: 'setTheme',
-            payload: 'default'
-        }).then(() => {
-            AThelper.themeCurrent = 'default';
-            document.body.classList.remove(`${extPrefix}theme_dark`);
-            document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#212121');
-            document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#212121');
-            document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#212121');
-        }).catch((error) => {
-            console.error(error);
-        });
+    function applyDefaultTheme() {
+        AThelper.themeCurrent = 'default';
+        document.body.classList.remove(`${extPrefix}theme_dark`);
+        document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#212121');
+        document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#212121');
+        document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#212121');
     }
 
     function createMainMenu() {
