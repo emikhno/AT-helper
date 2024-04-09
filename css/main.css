@@ -105,7 +105,7 @@ span.AThelper__modal_close {
 }
 
 .AThelper__typosList,
-.AThelper__modal_actionSecond {
+.AThelper__modal_actionSecond.btn {
     display: none;
 }
 
