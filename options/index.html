@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="options.css"/>
+    <title>AT helper</title>
+</head>
+<body class="wrapper">
+<div class="sidebar">
+    <h1 class="mt-0 text-center">AT helper</h1>
+
+    <div class="nav">
+        <a href="#main" class="nav__item nav__item_active" id="mainSettingsLink">Основные</a>
+        <a href="#typos" class="nav__item" id="typosLink">Опечатки</a>
+    </div>
+</div>
+
+<div class="content">
+    <div class="settings__group" id="main">
+        <h2 id="mainSettingsTitle">Основные</h2>
+
+        <div class="d-flex py-4">
+            <h3 class="my-0" id="themeTitle">Тема</h3>
+            <div class="ml-auto">
+                <label class="mr-2">
+                    <input type="radio" name="theme" value="default" id="themeDefault">
+                    <span id="themeLightText">Светлая</span>
+                </label>
+                <label>
+                    <input type="radio" name="theme" value="dark" id="themeDark">
+                    <span id="themeDarkText">Тёмная</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings__group" id="typos" hidden>
+        <h2 id="typosSettingsTitle">Список опечаток</h2>
+
+    </div>
+
+    <div class="error d-none" id="errorMessage"></div>
+</div>
+
+<script src="options.js"></script>
+</body>
+</html>

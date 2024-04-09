@@ -54,6 +54,11 @@
     "description": "Текст."
   },
 
+  "noTyposText": {
+    "message": "Нет сохранённых опечаток.",
+    "description": "Текст."
+  },
+
   "copyText": {
     "message": "Копировать",
     "description": "Текст."

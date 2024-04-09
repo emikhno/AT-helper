@@ -33,7 +33,11 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
             return deleteTypo(request.payload);
         case 'getBookTypos':
             return getBookTypos(request.payload);
+        case 'getBooksTypos':
+            return getBooksTypos();
 
+        case 'getBook':
+            return getBook(request.payload);
         case 'saveBook':
             return saveBook(request.payload);
 
@@ -184,6 +188,46 @@ function getBookTypos(bookId) {
                             .objectStore('typos')
                             .index('book_index')
                             .getAll(bookId);
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = function() {
+                resolve(request.result);
+            }
+
+            request.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function getBooksTypos() {
+    if (db) {
+        const request = db.transaction('typos')
+                            .objectStore('typos')
+                            .getAll();
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = function() {
+                resolve(request.result);
+            }
+
+            request.onerror = function(event) {
+                reject(event);
+            }
+        });
+    } else {
+        openDB();
+    }
+}
+
+function getBook(bookId) {
+    if (db) {
+        const request = db.transaction('books')
+                            .objectStore('books')
+                            .get(bookId);
 
         return new Promise((resolve, reject) => {
             request.onsuccess = function() {
