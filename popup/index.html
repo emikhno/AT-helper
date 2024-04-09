@@ -2,34 +2,37 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="popup.css"/>
     <title>AT helper</title>
 </head>
 <body>
 <h1 class="text-center">AT helper</h1>
+
 <div class="d-flex">
-    <h2>Тема: </h2>
+    <h2 id="themeTitle">Тема: </h2>
     <label class="mx-auto align-self-center">
         <input type="radio" name="theme" value="default" id="themeDefault">
-        Светлая
+        <span id="themeLightText">Светлая</span>
     </label>
     <label class="align-self-center">
         <input type="radio" name="theme" value="dark" id="themeDark">
-        Тёмная
+        <span id="themeDarkText">Тёмная</span>
     </label>
 </div>
-<div class="d-flex my-5">
-    <h2 class="mr-2">Список опечаток</h2>
+
+<div class="d-flex my-6 cursor" id="optionsLink" title="Настройки и сохранённые данные">
+    <h2 class="mr-auto" id="optionsLinkTitle">Настройки</h2>
     <svg width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3"
-         stroke="#000000" fill="none" class="align-self-end cursor" id="typosList">
+         stroke="#000000" fill="none" class="align-self-end" id="optionsLinkIcon">
         <path d="M55.4,32V53.58a1.81,1.81,0,0,1-1.82,1.82H10.42A1.81,1.81,0,0,1,8.6,53.58V10.42A1.81,1.81,0,0,1,10.42,8.6H32"/>
         <polyline points="40.32 8.6 55.4 8.6 55.4 24.18"/>
         <line x1="19.32" y1="45.72" x2="54.61" y2="8.91"/>
     </svg>
 </div>
+
 <div class="error d-none" id="errorMessage"></div>
 
 <script src="/js/browser-polyfill.js"></script>
-<script src="index.js"></script>
+<script src="popup.js"></script>
 </body>
 </html>

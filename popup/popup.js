@@ -1,7 +1,17 @@
 const themeDefault = document.getElementById('themeDefault');
 const themeDark = document.getElementById('themeDark');
-const typosList = document.getElementById('typosList');
+const optionsLink = document.getElementById('optionsLink');
+const optionsLinkIcon = document.getElementById('optionsLinkIcon');
 const errorMessage = document.getElementById('errorMessage');
+
+const uiLanguage = browser.i18n.getUILanguage();
+if (['en-US', 'en-GB', 'en-CA'].includes(uiLanguage)) {
+    document.getElementById('themeTitle').textContent = 'Theme: ';
+    document.getElementById('themeLightText').textContent = 'Light';
+    document.getElementById('themeDarkText').textContent = 'Dark';
+    document.getElementById('optionsLinkTitle').textContent = 'Options';
+    optionsLink.title = 'Options and saving data';
+}
 
 browser.runtime.sendMessage({
     message: 'getTheme'
@@ -17,14 +27,18 @@ browser.runtime.sendMessage({
     errorMessage.classList.remove('d-none');
 });
 
-themeDefault.addEventListener('click', (event) => {
+themeDefault.addEventListener('click', () => {
     setThemeRequest('default');
     applyDefaultTheme();
 });
 
-themeDark.addEventListener('click', (event) => {
+themeDark.addEventListener('click', () => {
     setThemeRequest('dark');
     applyDarkTheme();
+});
+
+optionsLink.addEventListener('click', () => {
+    browser.runtime.openOptionsPage();
 });
 
 
@@ -43,11 +57,11 @@ function setThemeRequest(theme) {
 function applyDarkTheme() {
     themeDark.checked = true;
     document.body.classList.add('theme_dark');
-    typosList.setAttribute('stroke', '#FFFFFF');
+    optionsLinkIcon.setAttribute('stroke', '#FFFFFF');
 }
 
 function applyDefaultTheme() {
     themeDefault.checked = true;
     document.body.classList.remove('theme_dark');
-    typosList.setAttribute('stroke', '#000000');
+    optionsLinkIcon.setAttribute('stroke', '#000000');
 }
