@@ -7,7 +7,7 @@ try {
 
     browser.runtime.sendMessage({
         message: 'getBookTypos',
-        payload: bookId
+        payload: +bookId
     }).then((response) => {
         bookTypos = response;
 
@@ -20,7 +20,7 @@ try {
             browser.runtime.sendMessage({
                 message: 'saveBook',
                 payload: {
-                    'id': bookId,
+                    'id': +bookId,
                     'title': document.querySelector('h1').innerText
                 }
             });
