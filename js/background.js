@@ -2,7 +2,7 @@ let db;
 openDB();
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log(request.message, sender)
+    // console.log(request.message, sender)
 
     switch (request.message) {
         case 'getTheme':
