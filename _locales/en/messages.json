@@ -54,6 +54,11 @@
     "description": "Some text."
   },
 
+  "noTyposText": {
+    "message": "No saved typos.",
+    "description": "Some text."
+  },
+
   "copyText": {
     "message": "Copy",
     "description": "Some text."
