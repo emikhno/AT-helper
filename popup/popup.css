@@ -32,9 +32,13 @@ h2 {
 	margin-right: auto;
 }
 
-.my-5 {
-	margin-top: 20px;
-	margin-bottom: 20px;
+.my-6 {
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+
+.mr-auto {
+	margin-right: auto;
 }
 
 .mr-2 {
@@ -51,13 +55,4 @@ h2 {
 
 .cursor {
 	cursor: pointer;
-}
-
-
-.with-100 {
-	width: 100%;
-}
-
-.float-right {
-	float: right;
 }
