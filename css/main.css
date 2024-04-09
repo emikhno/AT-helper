@@ -1241,3 +1241,8 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .content {
     background-color: #000000;
 }
+
+.AThelper__theme_dark .library-dropdowns .btn-dropdown:hover,
+.AThelper__theme_dark .library-dropdowns .btn-dropdown.open {
+    background-color: #000000;
+}
