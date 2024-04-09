@@ -62,10 +62,10 @@
   },
 
   "background": {
-    "scripts": ["js/background.js"]
+    "service_worker": "js/background.js"
   },
 
-  "optional_permissions": [
+  "permissions": [
     "tabs"
   ],
 

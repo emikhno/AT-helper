@@ -1,3 +1,4 @@
+importScripts("./browser-polyfill.js");
 let db;
 openDB();
 
