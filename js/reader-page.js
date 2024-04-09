@@ -92,7 +92,7 @@ try {
         browser.runtime.sendMessage({
             message: 'saveTypo',
             payload: {
-                'book_id': bookId,
+                'book_id': +bookId,
                 ...userSelection
             }
         }).then(() => {
