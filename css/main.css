@@ -77,9 +77,10 @@
 
 span.AThelper__modal_close {
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 2;
+    transform: rotate(45deg);
     cursor: pointer;
 }
 
