@@ -64,6 +64,11 @@ try {
         typoDescriptionInput.placeholder =  browser.i18n.getMessage('describeTypoText');
         typoDescriptionInput.classList.add('form-control');
         typoDescriptionInput.classList.add(`${extPrefix}w-100`);
+        typoDescriptionInput.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.stopPropagation(); // To prevent reader scrolling
+            }
+        });
         typoDescriptionInput.addEventListener('keyup', (event) => {
             if (event.code === 'Enter' || event.code === 'NumpadEnter') {
                 saveUserSelection();
