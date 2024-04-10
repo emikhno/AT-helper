@@ -59,6 +59,7 @@ try {
         modalBody.appendChild(typoContext);
 
         const typoDescriptionInput = document.createElement('input');
+        typoDescriptionInput.type = 'text';
         typoDescriptionInput.id = `${extPrefix}typo-description`;
         typoDescriptionInput.placeholder =  browser.i18n.getMessage('describeTypoText');
         typoDescriptionInput.classList.add('form-control');
