@@ -11,7 +11,7 @@ try {
     }).then((response) => {
         bookTypos = response;
 
-        if (bookTypos.length > 0) {
+        if (bookTypos && bookTypos.length > 0) {
             typosList.classList.add(`${extPrefix}d-block`);
             typosList.addEventListener('click', () => {
                 openListModal();
