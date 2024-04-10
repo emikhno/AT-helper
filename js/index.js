@@ -164,7 +164,7 @@ try {
         modalHeader.classList.add(`${extPrefix}modal_header`);
         const modalCloseIcon = document.createElement('span');
         modalCloseIcon.classList.add(`${extPrefix}modal_close`);
-        modalCloseIcon.textContent = 'X';
+        modalCloseIcon.textContent = '+';
         modalHeader.appendChild(modalCloseIcon);
         const modalTitle = document.createElement('h2');
         modalTitle.classList.add(`${extPrefix}modal_title`);
