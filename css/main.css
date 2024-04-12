@@ -1232,7 +1232,7 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 }
 
 .AThelper__theme_dark .feed-row.is-new .comment:hover {
-    background-color: #000000;
+    background-color: #000000 !important;
 }
 
 .AThelper__theme_dark .drop-element.drop-theme-arrows.drop-element-attached-bottom.drop-element-attached-center.drop-view-comment .drop-content {
@@ -1246,4 +1246,8 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .library-dropdowns .btn-dropdown:hover,
 .AThelper__theme_dark .library-dropdowns .btn-dropdown.open {
     background-color: #000000;
+}
+
+.AThelper__theme_dark {
+    scrollbar-color: #838385 #343436;
 }
