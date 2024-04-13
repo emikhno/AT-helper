@@ -1248,6 +1248,26 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: #000000;
 }
 
+.AThelper__theme_dark .fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active,
+.AThelper__theme_dark .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper {
+    background-color: #212121;
+}
+
+.AThelper__theme_dark .fr-command.fr-btn+.fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a.fr-active {
+    background-color: #000000;
+}
+
+.AThelper__theme_dark .fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active:hover,
+.AThelper__theme_dark .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active:hover,
+.AThelper__theme_dark .fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active:focus,
+.AThelper__theme_dark .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active:focus {
+    background-color: #424242 !important;
+}
+
 .AThelper__theme_dark {
     scrollbar-color: #838385 #343436;
 }
