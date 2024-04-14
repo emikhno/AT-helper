@@ -43,22 +43,38 @@ try {
             }
         });
 
-        const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
-
         browser.runtime.sendMessage({
             message: 'getTheme'
         }).then(response => {
-            AThelper.themeCurrent = response;
-            if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
-                applyDarkTheme();
-            }
-            if (isMobileLayout) {
-                themeToggle.classList.add(`${extPrefix}d-none`);
-                document.body.classList.remove(`${extPrefix}theme_dark`);
+            if (response) {
+                applyThemeWhenPageLoaded(response);
+            } else {
+                setTimeout(() => {
+                    browser.runtime.sendMessage({
+                        message: 'getTheme'
+                    }).then(response => {
+                        if (response) {
+                            applyThemeWhenPageLoaded(response);
+                        }
+                    })
+                }, 10);
             }
         }).catch((error) => {
             console.error(error);
         });
+    }
+
+    function applyThemeWhenPageLoaded(response) {
+        const isMobileLayout = document.querySelector('.mobile-layout') || document.querySelector('#reader-layout');
+
+        AThelper.themeCurrent = response;
+        if (AThelper.themeCurrent === 'dark' && !isMobileLayout) {
+            applyDarkTheme();
+        }
+        if (isMobileLayout) {
+            themeToggle.classList.add(`${extPrefix}d-none`);
+            document.body.classList.remove(`${extPrefix}theme_dark`);
+        }
     }
 
     function applyDarkTheme() {
