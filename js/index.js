@@ -57,7 +57,7 @@ try {
                             applyThemeWhenPageLoaded(response);
                         }
                     })
-                }, 10);
+                }, 100);
             }
         }).catch((error) => {
             console.error(error);
