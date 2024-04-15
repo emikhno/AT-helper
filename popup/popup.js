@@ -17,10 +17,20 @@ try {
     browser.runtime.sendMessage({
         message: 'getTheme'
     }).then(response => {
-        if (response === 'dark') {
-            applyDarkTheme();
+        if (response) {
+            (response === 'dark')
+                ? applyDarkTheme()
+                : applyDefaultTheme();
         } else {
-            applyDefaultTheme();
+            setTimeout(() => {
+                browser.runtime.sendMessage({
+                    message: 'getTheme'
+                }).then(response => {
+                    (response === 'dark')
+                        ? applyDarkTheme()
+                        : applyDefaultTheme();
+                })
+            }, 10);
         }
     }).catch((error) => {
         console.error('Error:', error);
