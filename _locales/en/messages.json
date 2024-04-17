@@ -79,6 +79,11 @@
     "description": "Some text."
   },
 
+  "hideTopicsText": {
+    "message": "Hide Topics",
+    "description": "Some text."
+  },
+
   "dbOnVersionChange": {
     "message": "The database is out of date, please reload the page.",
     "description": "Warning."

@@ -79,6 +79,11 @@
     "description": "Текст."
   },
 
+  "hideTopicsText": {
+    "message": "Скрыть темы",
+    "description": "Текст."
+  },
+
   "dbOnVersionChange": {
     "message": "База данных устарела, пожалуйста, перезагрузите страницу.",
     "description": "Предупреждение."

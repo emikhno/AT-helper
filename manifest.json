@@ -40,6 +40,12 @@
         "https://author.today/work/*"
       ],
       "js": ["js/work-page.js"]
+    },
+    {
+      "matches": [
+        "https://author.today/discussions*"
+      ],
+      "js": ["js/discussions.js"]
     }
   ],
 
