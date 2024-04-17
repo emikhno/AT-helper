@@ -19,10 +19,14 @@ try {
         const currUrl = window.location.href;
         if (currUrl !== prevUrl) {
             prevUrl = currUrl;
-            setTimeout(() => {
-                createTopicFilter(topicFilter);
-                applyBlogTopicFilter(topicFilter);
-            }, 1500);
+            const timerId = setInterval(() => {
+                const nprogress = document.getElementById('nprogress');
+                if (!nprogress) {
+                    clearInterval(timerId);
+                    createTopicFilter(topicFilter);
+                    applyBlogTopicFilter(topicFilter);
+                }
+            }, 1000);
         }
     }, 100);
 

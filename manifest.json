@@ -36,6 +36,9 @@
       "js": ["js/reader-page.js"]
     },
     {
+      "exclude_matches": [
+        "https://author.today/work/genre/*"
+      ],
       "matches": [
         "https://author.today/work/*"
       ],
@@ -45,7 +48,13 @@
       "matches": [
         "https://author.today/discussions*"
       ],
-      "js": ["js/discussions.js"]
+      "js": ["js/discussions-page.js"]
+    },
+    {
+      "matches": [
+        "https://author.today/work/genre/*"
+      ],
+      "js": ["js/work-genre-page.js"]
     }
   ],
 

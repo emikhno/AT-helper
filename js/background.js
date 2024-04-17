@@ -34,6 +34,11 @@ try {
             case 'setBlogTopicFilter':
                 return setBlogTopicFilter(request.payload);
 
+            case 'getLikesFilter':
+                return getLikesFilter();
+            case 'setLikesFilter':
+                return setLikesFilter(request.payload);
+
             case 'saveTypo':
                 return saveTypo(request.payload);
             case 'deleteTypo':
@@ -175,6 +180,49 @@ try {
             transaction.objectStore('settings')
                         .put({
                             'name': 'blog_topic_filter',
+                            'values': value
+                        });
+
+            return new Promise((resolve, reject) => {
+                transaction.oncomplete = function() {
+                    resolve(true);
+                }
+
+                transaction.onerror = function(event) {
+                    reject(event);
+                }
+            });
+        } else {
+            openDB();
+        }
+    }
+
+    function getLikesFilter() {
+        if (db) {
+            const request = db.transaction('settings')
+                                .objectStore('settings')
+                                .get('likes_filter');
+
+            return new Promise((resolve, reject) => {
+                request.onsuccess = function() {
+                    resolve(request.result ? request.result.values : null);
+                }
+
+                request.onerror = function(event) {
+                    reject(event);
+                }
+            });
+        } else {
+            openDB();
+        }
+    }
+
+    function setLikesFilter(value) {
+        if (db) {
+            const transaction = db.transaction('settings', 'readwrite');
+            transaction.objectStore('settings')
+                        .put({
+                            'name': 'likes_filter',
                             'values': value
                         });
 
