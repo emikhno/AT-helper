@@ -30,6 +30,12 @@ try {
                     console.error('Error:', error);
                 });
                 break;
+
+            case 'getBlogTopicFilter':
+                return getBlogTopicFilter();
+            case 'setBlogTopicFilter':
+                return setBlogTopicFilter(request.payload);
+
             case 'saveTypo':
                 return saveTypo(request.payload);
             case 'deleteTypo':
@@ -129,6 +135,49 @@ try {
                         .put({
                             'name': 'theme',
                             'value': value
+                        });
+
+            return new Promise((resolve, reject) => {
+                transaction.oncomplete = function() {
+                    resolve(true);
+                }
+
+                transaction.onerror = function(event) {
+                    reject(event);
+                }
+            });
+        } else {
+            openDB();
+        }
+    }
+
+    function getBlogTopicFilter() {
+        if (db) {
+            const request = db.transaction('settings')
+                                .objectStore('settings')
+                                .get('blog_topic_filter');
+
+            return new Promise((resolve, reject) => {
+                request.onsuccess = function() {
+                    resolve(request.result ? request.result.values : null);
+                }
+
+                request.onerror = function(event) {
+                    reject(event);
+                }
+            });
+        } else {
+            openDB();
+        }
+    }
+
+    function setBlogTopicFilter(value) {
+        if (db) {
+            const transaction = db.transaction('settings', 'readwrite');
+            transaction.objectStore('settings')
+                        .put({
+                            'name': 'blog_topic_filter',
+                            'values': value
                         });
 
             return new Promise((resolve, reject) => {

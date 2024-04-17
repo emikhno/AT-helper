@@ -136,6 +136,15 @@ span.AThelper__modal_close {
     margin-top: 8px;
 }
 
+.AThelper__py-3 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.AThelper__pa-7px {
+    padding: 7px;
+}
+
 .AThelper__d-none {
     display: none;
 }
