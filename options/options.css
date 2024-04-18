@@ -11,6 +11,15 @@ html {
 	color: #FFFFFF;
 }
 
+.theme_dark a {
+    color: #FFFFFF;
+}
+
+.theme_dark select {
+    background-color: #212121;
+    color: #FFFFFF;
+}
+
 .wrapper {
     display: flex;
     height: 100%;
@@ -38,10 +47,6 @@ html {
     color: #212121;
     font-size: 1.2em;
     text-decoration: none;
-}
-
-.theme_dark a {
-    color: #FFFFFF;
 }
 
 .nav__item:hover,
@@ -141,4 +146,8 @@ html {
 
 .position-relative {
     position: relative;
+}
+
+#topic-selector {
+    overflow: hidden;
 }
