@@ -40,7 +40,7 @@ try {
         likesFilterMinWrapper.classList.add('form-group');
         likesFilterMinWrapper.classList.add('col-xs-3');
         const likesFilterMinLabel = document.createElement('label');
-        likesFilterMinLabel.textContent = 'Лайки от';
+        likesFilterMinLabel.textContent = browser.i18n.getMessage('likesFromText');
         const likesFilterMin = document.createElement('input');
         likesFilterMin.type = 'number';
         likesFilterMin.min = 0;
@@ -54,7 +54,7 @@ try {
         likesFilterMaxWrapper.classList.add('form-group');
         likesFilterMaxWrapper.classList.add('col-xs-3');
         const likesFilterMaxLabel = document.createElement('label');
-        likesFilterMaxLabel.textContent = 'Лайки до';
+        likesFilterMaxLabel.textContent = browser.i18n.getMessage('likesToText');
         const likesFilterMax = document.createElement('input');
         likesFilterMax.type = 'number';
         likesFilterMax.min = 0;

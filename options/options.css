@@ -15,7 +15,8 @@ html {
     color: #FFFFFF;
 }
 
-.theme_dark select {
+.theme_dark select,
+.theme_dark input {
     background-color: #212121;
     color: #FFFFFF;
 }
@@ -150,4 +151,10 @@ html {
 
 #topic-selector {
     overflow: hidden;
+}
+
+#likes-min,
+#likes-max {
+    max-width: 100px;
+    outline: none;
 }
