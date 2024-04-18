@@ -83,6 +83,11 @@ try {
         document.getElementById(`${extPrefix}themeToggle_path`).setAttribute('fill', '#FFFFFF');
         document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#FFFFFF');
         document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#FFFFFF');
+
+        const hardcodedStylesSpans = document.querySelectorAll('span[style*="color: "]');
+        for (let i = 0; i < hardcodedStylesSpans.length; i++) {
+            hardcodedStylesSpans[i].style.color = '';
+        }
     }
 
     function applyDefaultTheme() {
