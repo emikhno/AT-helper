@@ -84,6 +84,16 @@
     "description": "Текст."
   },
 
+  "likesFromText": {
+    "message": "Лайки от",
+    "description": "Текст."
+  },
+
+  "likesToText": {
+    "message": "Лайки до",
+    "description": "Текст."
+  },
+
   "dbOnVersionChange": {
     "message": "База данных устарела, пожалуйста, перезагрузите страницу.",
     "description": "Предупреждение."

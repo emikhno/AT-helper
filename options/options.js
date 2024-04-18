@@ -16,7 +16,11 @@ try {
         document.getElementById('theme-title').textContent = 'Theme';
         document.getElementById('theme-light-text').textContent = 'Light';
         document.getElementById('theme-dark-text').textContent = 'Dark';
-        topicSelector.textContent = 'Clear';
+        document.getElementById('topic-title').textContent = 'Filter by post topics';
+        topicSelector.querySelector('option:first-child').textContent = 'Clear';
+        document.getElementById('likes-title').textContent = 'Filter by likes (books)';
+        document.getElementById('likes-min-text').textContent = 'from: ';
+        document.getElementById('likes-max-text').textContent = 'to: ';
         document.getElementById('typos-settings-title').textContent = 'List of typos';
     }
 
@@ -55,6 +59,20 @@ try {
                 topicSelectorOptions[i].selected = true;
             }
         }
+    }).catch((error) => {
+        console.error(error);
+    });
+
+    let likesMin;
+    let likesMax;
+    const likesFilterMin = document.getElementById('likes-min');
+    const likesFilterMax = document.getElementById('likes-max');
+    browser.runtime.sendMessage({
+        message: 'getLikesFilter'
+    }).then(response => {
+        [likesMin, likesMax] = response ?? [null, null];
+        likesFilterMin.value = likesMin;
+        likesFilterMax.value = likesMax;
     }).catch((error) => {
         console.error(error);
     });
@@ -192,6 +210,28 @@ try {
         browser.runtime.sendMessage({
             message: 'setBlogTopicFilter',
             payload: topicFilter
+        }).catch((error) => {
+            console.error(error);
+        });
+    });
+
+    likesFilterMin.addEventListener('change', (event) => {
+        likesMin = event.target.value;
+
+        browser.runtime.sendMessage({
+            message: 'setLikesFilter',
+            payload: [likesMin, likesMax]
+        }).catch((error) => {
+            console.error(error);
+        });
+    });
+
+    likesFilterMax.addEventListener('change', (event) => {
+        likesMax = event.target.value;
+
+        browser.runtime.sendMessage({
+            message: 'setLikesFilter',
+            payload: [likesMin, likesMax]
         }).catch((error) => {
             console.error(error);
         });

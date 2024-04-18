@@ -84,6 +84,16 @@
     "description": "Some text."
   },
 
+  "likesFromText": {
+    "message": "Likes from",
+    "description": "Some text."
+  },
+
+  "likesToText": {
+    "message": "Likes to",
+    "description": "Some text."
+  },
+
   "dbOnVersionChange": {
     "message": "The database is out of date, please reload the page.",
     "description": "Warning."
