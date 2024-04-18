@@ -173,10 +173,33 @@ span.AThelper__modal_close {
     font-style: italic;
 }
 
+.AThelper__profile-info {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.AThelper__profile-info_saved {
+    border-color: limegreen !important;
+    box-shadow: 0 0 0 2px rgba(120,190,33,.35);
+}
+
+.AThelper__profile-info-save-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 /* ================================================ Dark theme ================================================ */
 .AThelper__theme_dark {
     background-color: #424242;
     color: #FFFFFF;
+}
+
+.AThelper__theme_dark .AThelper__profile-info {
+    background-color: #424242;
 }
 
 .AThelper__theme_dark .topnavbar-wrapper {
