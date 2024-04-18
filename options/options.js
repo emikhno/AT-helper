@@ -1,21 +1,23 @@
 try {
-    const themeDefault = document.getElementById('themeDefault');
-    const themeDark = document.getElementById('themeDark');
-    const mainSettingsLink = document.getElementById('mainSettingsLink');
+    const themeDefault = document.getElementById('theme-default');
+    const themeDark = document.getElementById('theme-dark');
+    const mainSettingsLink = document.getElementById('main-settings-link');
     const mainSettings = document.getElementById('main');
-    const typosListLink = document.getElementById('typosLink');
+    const topicSelector = document.getElementById('topic-selector');
+    const typosListLink = document.getElementById('typos-link');
     const typosList = document.getElementById('typos');
-    const errorMessage = document.getElementById('errorMessage');
+    const errorMessage = document.getElementById('error-message');
 
     const uiLanguage = browser.i18n.getUILanguage();
     if (['en-US', 'en-GB', 'en-CA'].includes(uiLanguage)) {
         mainSettingsLink.textContent = 'Main';
         typosLink.textContent = 'Typos';
-        document.getElementById('mainSettingsTitle').textContent = 'Main Settings';
-        document.getElementById('themeTitle').textContent = 'Theme';
-        document.getElementById('themeLightText').textContent = 'Light';
-        document.getElementById('themeDarkText').textContent = 'Dark';
-        document.getElementById('typosSettingsTitle').textContent = 'List of typos';
+        document.getElementById('main-settings-title').textContent = 'Main Settings';
+        document.getElementById('theme-title').textContent = 'Theme';
+        document.getElementById('theme-light-text').textContent = 'Light';
+        document.getElementById('theme-dark-text').textContent = 'Dark';
+        topicSelector.textContent = 'Clear';
+        document.getElementById('typos-settings-title').textContent = 'List of typos';
     }
 
     browser.runtime.sendMessage({
@@ -40,6 +42,21 @@ try {
         console.error('Error:', error);
         errorMessage.textContent = error;
         errorMessage.classList.remove('d-none');
+    });
+
+    let topicFilter = [];
+    const topicSelectorOptions = topicSelector.querySelectorAll('option');
+    browser.runtime.sendMessage({
+        message: 'getBlogTopicFilter'
+    }).then(response => {
+        topicFilter = response ?? [];
+        for (let i = 0; i < topicSelectorOptions.length; i++) {
+            if (topicFilter.includes(topicSelectorOptions[i].value)) {
+                topicSelectorOptions[i].selected = true;
+            }
+        }
+    }).catch((error) => {
+        console.error(error);
     });
 
     browser.runtime.sendMessage({
@@ -156,6 +173,28 @@ try {
         typosList.hidden = false;
         mainSettingsLink.classList.remove('nav__item_active');
         typosListLink.classList.add('nav__item_active');
+    });
+
+    topicSelector.addEventListener('change', (event) => {
+        if (!event.target.value) {
+            for (let i = 0; i < topicSelectorOptions.length; i++) {
+                topicSelectorOptions[i].selected = false;
+            }
+        }
+
+        topicFilter = [];
+        for (let i = 0; i < topicSelectorOptions.length; i++) {
+            if (topicSelectorOptions[i].selected) {
+                topicFilter.push(topicSelectorOptions[i].value);
+            }
+        }
+
+        browser.runtime.sendMessage({
+            message: 'setBlogTopicFilter',
+            payload: topicFilter
+        }).catch((error) => {
+            console.error(error);
+        });
     });
 
 

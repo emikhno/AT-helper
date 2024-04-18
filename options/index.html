@@ -10,36 +10,55 @@
     <h1 class="mt-0 text-center">AT helper</h1>
 
     <div class="nav">
-        <a href="#main" class="nav__item nav__item_active" id="mainSettingsLink">Основные</a>
-        <a href="#typos" class="nav__item" id="typosLink">Опечатки</a>
+        <a href="#main" class="nav__item nav__item_active" id="main-settings-link">Основные</a>
+        <a href="#typos" class="nav__item" id="typos-link">Опечатки</a>
     </div>
 </div>
 
 <div class="content">
     <div class="settings__group" id="main">
-        <h2 id="mainSettingsTitle">Основные</h2>
+        <h2 id="main-settings-title">Основные</h2>
 
         <div class="d-flex py-4">
-            <h3 class="my-0" id="themeTitle">Тема</h3>
+            <h3 class="my-0" id="theme-title">Тема</h3>
             <div class="ml-auto">
                 <label class="mr-2">
-                    <input type="radio" name="theme" value="default" id="themeDefault">
-                    <span id="themeLightText">Светлая</span>
+                    <input type="radio" name="theme" value="default" id="theme-default">
+                    <span id="theme-light-text">Светлая</span>
                 </label>
                 <label>
-                    <input type="radio" name="theme" value="dark" id="themeDark">
-                    <span id="themeDarkText">Тёмная</span>
+                    <input type="radio" name="theme" value="dark" id="theme-dark">
+                    <span id="theme-dark-text">Тёмная</span>
                 </label>
+            </div>
+        </div>
+
+        <div class="d-flex py-4">
+            <h3 class="my-0" id="topic-title">Фильтр по темам постов</h3>
+            <div class="ml-auto">
+                <select multiple size="11" id="topic-selector">
+                    <option value="">Очистить</option>
+                    <option value="/discussions/blog/personal">Личное</option>
+                    <option value="/discussions/blog/self-pr">Самопиар</option>
+                    <option value="/discussions/blog/off-topic">Оффтопик</option>
+                    <option value="/discussions/blog/notes">Заметки на полях</option>
+                    <option value="/discussions/blog/flash_mobs-holidays">Флешмобы и праздники</option>
+                    <option value="/discussions/blog/critique">Отзывы и критика</option>
+                    <option value="/discussions/blog/articles">Статьи</option>
+                    <option value="/discussions/blog/contests">Конкурсы, марафоны, игры</option>
+                    <option value="/discussions/blog/services">Предлагаю услуги</option>
+                    <option value="/discussions/blog/promocodes">Промокоды и розыгрыши</option>
+                </select>
             </div>
         </div>
     </div>
 
     <div class="settings__group" id="typos" hidden>
-        <h2 id="typosSettingsTitle">Список опечаток</h2>
+        <h2 id="typos-settings-title">Список опечаток</h2>
 
     </div>
 
-    <div class="error d-none" id="errorMessage"></div>
+    <div class="error d-none" id="error-message"></div>
 </div>
 
 <script src="/js/browser-polyfill.js"></script>

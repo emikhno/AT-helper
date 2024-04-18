@@ -95,13 +95,13 @@ try {
         selector.addEventListener('change', (event) => {
             const options = selector.querySelectorAll('option');
             if (!event.target.value) {
-                for (let i = 0; i < selector.length; i++) {
+                for (let i = 0; i < options.length; i++) {
                     options[i].selected = false;
                 }
             }
 
             topicFilter = [];
-            for (let i = 0; i < selector.length; i++) {
+            for (let i = 0; i < options.length; i++) {
                 if (options[i].selected) {
                     topicFilter.push(options[i].value);
                 }
