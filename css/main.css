@@ -781,7 +781,6 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
 .AThelper__theme_dark .fr-wrapper .fr-placeholder,
 .AThelper__theme_dark .fr-box:not(.fr-basic) .fr-wrapper .fr-placeholder {
     color: #BDBDBD;
-    z-index: 2;
 }
 
 .AThelper__theme_dark .fr-view h2:not(.panel-title) {
