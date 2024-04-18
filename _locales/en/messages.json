@@ -112,5 +112,10 @@
   "unknownRequest": {
     "message": "Unknown command or request.",
     "description": "Some text."
+  },
+
+  "profileInfoPlaceholder": {
+    "message": "Your notes about this user.",
+    "description": "Some text."
   }
 }

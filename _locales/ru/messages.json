@@ -112,5 +112,10 @@
   "unknownRequest": {
     "message": "Неизвестная команда или запрос.",
     "description": "Текст."
+  },
+
+  "profileInfoPlaceholder": {
+    "message": "Ваши отметки об этом пользователе.",
+    "description": "Текст."
   }
 }

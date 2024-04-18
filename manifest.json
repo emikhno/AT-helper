@@ -40,7 +40,7 @@
     },
     {
       "exclude_matches": [
-        "https://author.today/work/genre/*"
+        "https://author.today/work/*/*"
       ],
       "matches": [
         "https://author.today/work/*"
@@ -58,6 +58,15 @@
         "https://author.today/work/genre/*"
       ],
       "js": ["js/work-genre-page.js"]
+    },
+    {
+      "exclude_matches": [
+        "https://author.today/u/*/*"
+      ],
+      "matches": [
+        "https://author.today/u/*"
+      ],
+      "js": ["js/profile-page.js"]
     }
   ],
 
