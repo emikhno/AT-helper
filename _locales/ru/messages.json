@@ -59,6 +59,11 @@
     "description": "Текст."
   },
 
+  "noProfilesNotesText": {
+    "message": "Нет отметок о пользователях.",
+    "description": "Текст."
+  },
+
   "copyText": {
     "message": "Копировать",
     "description": "Текст."

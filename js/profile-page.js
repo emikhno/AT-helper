@@ -50,11 +50,13 @@ try {
 
     function setProfileInfo(event) {
         const profileInfo = event.target.value;
+        const profileName = document.querySelector('.profile-name a');
         browser.runtime.sendMessage({
             message: 'setProfileInfo',
             payload: {
                 id: profileId,
-                info: profileInfo
+                info: profileInfo,
+                name: profileName ? profileName.textContent : null
             }
         }).then(() => {
             textareaHint.hidden = true;

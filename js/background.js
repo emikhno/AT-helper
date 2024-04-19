@@ -64,8 +64,12 @@ try {
 
             case 'getProfileInfo':
                 return getProfileInfo(request.payload);
+            case 'getProfilesInfo':
+                return getProfilesInfo();
             case 'setProfileInfo':
                 return setProfileInfo(request.payload);
+            case 'deleteProfileInfo':
+                return deleteProfileInfo(request.payload);
 
             default:
                 sendResponse({
@@ -469,11 +473,51 @@ try {
         }
     }
 
+    function getProfilesInfo() {
+        if (db) {
+            const request = db.transaction('profiles')
+                                .objectStore('profiles')
+                                .getAll();
+
+            return new Promise((resolve, reject) => {
+                request.onsuccess = function() {
+                    resolve(request.result);
+                }
+
+                request.onerror = function(event) {
+                    reject(event);
+                }
+            });
+        } else {
+            openDB();
+        }
+    }
+
     function setProfileInfo(profile) {
         if (db) {
             const transaction = db.transaction('profiles', 'readwrite');
             transaction.objectStore('profiles')
                         .put(profile);
+
+            return new Promise((resolve, reject) => {
+                transaction.oncomplete = function() {
+                    resolve(true);
+                }
+
+                transaction.onerror = function(event) {
+                    reject(event);
+                }
+            });
+        } else {
+            openDB();
+        }
+    }
+
+    function deleteProfileInfo(profileId) {
+        if (db) {
+            const transaction = db.transaction('profiles', 'readwrite')
+            transaction.objectStore('profiles')
+                        .delete(profileId);
 
             return new Promise((resolve, reject) => {
                 transaction.oncomplete = function() {

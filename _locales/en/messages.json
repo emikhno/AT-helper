@@ -59,6 +59,11 @@
     "description": "Some text."
   },
 
+  "noProfilesNotesText": {
+    "message": "No profiles notes",
+    "description": "Some text."
+  },
+
   "copyText": {
     "message": "Copy",
     "description": "Some text."

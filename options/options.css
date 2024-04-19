@@ -107,6 +107,11 @@ html {
     user-select: none;
 }
 
+.profiles-list__delete-icon {
+    top: calc(100% - 16px);
+    left: -40px;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -157,4 +162,27 @@ html {
 #likes-max {
     max-width: 100px;
     outline: none;
+}
+
+.profiles-list__li {
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.profiles-list__link {
+    margin-right: 12px;
+}
+
+.profiles-list__note {
+    font-style: italic;
+    cursor: pointer;
+}
+
+.theme_dark .profiles-list__note-edit {
+    background-color: #424242;
+    color: #FFFFFF;
+}
+
+.theme_dark .profiles-list__note-edit_saved {
+    outline: 1px solid limegreen;
 }
