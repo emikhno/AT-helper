@@ -11,6 +11,22 @@ try {
     const profileId = location.pathname.split('/')[2];
     const timerId = setInterval(createTextarea, 100);
 
+    let prevUrl = window.location.href;
+    setInterval(() => {
+        const currUrl = window.location.href;
+        if (currUrl !== prevUrl) {
+            prevUrl = currUrl;
+
+            const timerReloadId = setInterval(() => {
+                const nprogress = document.getElementById('nprogress');
+                if (!nprogress) {
+                    clearInterval(timerReloadId);
+                    createTextarea();
+                }
+            }, 1000);
+        }
+    }, 100);
+
 
 
     function createTextarea() {
