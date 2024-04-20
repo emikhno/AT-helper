@@ -61,7 +61,7 @@
     },
     {
       "exclude_matches": [
-        "https://author.today/u/*/*"
+        "https://author.today/u/*/*/*"
       ],
       "matches": [
         "https://author.today/u/*"
