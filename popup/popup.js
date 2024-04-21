@@ -1,16 +1,19 @@
 try {
-    const themeDefault = document.getElementById('themeDefault');
-    const themeDark = document.getElementById('themeDark');
-    const optionsLink = document.getElementById('optionsLink');
-    const optionsLinkIcon = document.getElementById('optionsLinkIcon');
-    const errorMessage = document.getElementById('errorMessage');
+    const themeDefault = document.getElementById('theme-default');
+    const themeDark = document.getElementById('theme-dark');
+    const optionsLink = document.getElementById('options-link');
+    const optionsLinkIcon = document.getElementById('options-link-icon');
+    const exportBtn = document.getElementById('btn-export');
+    const errorMessage = document.getElementById('error-message');
 
     const uiLanguage = browser.i18n.getUILanguage();
     if (['en-US', 'en-GB', 'en-CA'].includes(uiLanguage)) {
-        document.getElementById('themeTitle').textContent = 'Theme: ';
-        document.getElementById('themeLightText').textContent = 'Light';
-        document.getElementById('themeDarkText').textContent = 'Dark';
-        document.getElementById('optionsLinkTitle').textContent = 'Options';
+        document.getElementById('theme-title').textContent = 'Theme: ';
+        document.getElementById('theme-light-text').textContent = 'Light';
+        document.getElementById('theme-dark-text').textContent = 'Dark';
+        document.getElementById('options-link-title').textContent = 'Options';
+        document.getElementById('theme-dark-text').textContent = 'Dark';
+        exportBtn.textContent = 'Export Database';
         optionsLink.title = 'Options and saving data';
     }
 
@@ -50,6 +53,31 @@ try {
 
     optionsLink.addEventListener('click', () => {
         browser.runtime.openOptionsPage();
+    });
+
+    exportBtn.addEventListener('click', () => {
+        browser.runtime.sendMessage({
+            message: 'exportDB'
+        }).then(response => {
+            if (response) {
+                const datetime = new Date().toLocaleString('ru');
+                const filename = 'at-helper_' + datetime.substr(0, 10).replaceAll('.', '-') + '.json';
+                let dbData = {
+                    exported_at: datetime,
+                    data: response
+                };
+                dbData = JSON.stringify(dbData);
+
+                const link = document.createElement('a');
+                link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(dbData);
+                link.download = filename;
+                link.click();
+            }
+        }).catch((error) => {
+            console.error('Error:', error);
+            errorMessage.textContent = error;
+            errorMessage.classList.remove('d-none');
+        });
     });
 
 

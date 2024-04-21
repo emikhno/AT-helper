@@ -66,16 +66,27 @@
                 </label>
             </div>
         </div>
+
+        <div class="d-flex py-4">
+            <h3 class="my-0" id="export-import-title">База данных</h3>
+            <div class="ml-auto">
+                <button class="btn mr-4" id="btn-export">Экспорт</button>
+                <button class="btn" id="btn-import">Импорт</button>
+            </div>
+        </div>
+
+        <div class="d-none py-4" id="file-import">
+            <label for="input-import" id="file-import-label">Загрузите файл с данными: </label>
+            <input type="file" accept=".json" id="input-import">
+        </div>
     </div>
 
     <div class="settings__group" id="typos" hidden>
         <h2 id="typos-settings-title">Список опечаток</h2>
-
     </div>
 
     <div class="settings__group" id="profiles" hidden>
         <h2 id="profiles-settings-title">Отметки о пользователях</h2>
-
     </div>
 
     <div class="error d-none" id="error-message"></div>
