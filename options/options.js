@@ -7,6 +7,8 @@ try {
     const profilesListLink = document.getElementById('profiles-link');
     const typosList = document.getElementById('typos');
     const profilesList = document.getElementById('profiles');
+    const exportBtn = document.getElementById('btn-export');
+    const importBtn = document.getElementById('btn-import');
     const errorMessage = document.getElementById('error-message');
 
     const uiLanguage = browser.i18n.getUILanguage();
@@ -23,8 +25,12 @@ try {
         document.getElementById('likes-title').textContent = 'Filter by likes (books)';
         document.getElementById('likes-min-text').textContent = 'from: ';
         document.getElementById('likes-max-text').textContent = 'to: ';
+        document.getElementById('export-import-title').textContent = 'Database';
+        document.getElementById('file-import-label').textContent = 'Upload the database file: ';
         document.getElementById('typos-settings-title').textContent = 'List of typos';
         document.getElementById('profiles-settings-title').textContent = 'Profile notes';
+        exportBtn.textContent = 'Export';
+        importBtn.textContent = 'Import';
     }
 
     browser.runtime.sendMessage({
@@ -172,6 +178,70 @@ try {
         }).catch((error) => {
             console.error(error);
         });
+    });
+
+    exportBtn.addEventListener('click', () => {
+        browser.runtime.sendMessage({
+            message: 'exportDB'
+        }).then(response => {
+            if (response) {
+                const datetime = new Date().toLocaleString('ru');
+                const filename = 'at-helper_' + datetime.substr(0, 10).replaceAll('.', '-') + '.json';
+                let dbData = {
+                    exported_at: datetime,
+                    data: response
+                };
+                dbData = JSON.stringify(dbData);
+
+                const link = document.createElement('a');
+                link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(dbData);
+                link.download = filename;
+                link.click();
+            }
+        }).catch((error) => {
+            console.error('Error:', error);
+            errorMessage.textContent = error;
+            errorMessage.classList.remove('d-none');
+        });
+    });
+
+    importBtn.addEventListener('click', () => {
+        const fileImport = document.getElementById('file-import');
+        fileImport.classList.remove('d-none');
+    });
+
+    const importInput = document.getElementById('input-import');
+    importInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file);
+
+        reader.onload = function () {
+            if (reader.result) {
+                const data = JSON.parse(reader.result);
+                browser.runtime.sendMessage({
+                    message: 'importDB',
+                    payload: data.data
+                }).then((response) => {
+                    if (response) {
+                        alert(browser.i18n.getMessage('dbImported'));
+                        location.reload();
+                    }
+                }).catch((error) => {
+                    console.error('Error:', error);
+                    errorMessage.textContent = error;
+                    errorMessage.classList.remove('d-none');
+                });
+            }
+        };
+
+        reader.onerror = function () {
+            console.error('Error:', error);
+            errorMessage.textContent = error;
+            errorMessage.classList.remove('d-none');
+        };
+
+        importInput.value = '';
     });
 
 

@@ -73,6 +73,11 @@ try {
             case 'deleteProfileInfo':
                 return deleteProfileInfo(request.payload);
 
+            case 'exportDB':
+                return exportDB();
+            case 'importDB':
+                return importDB(request.payload);
+
             default:
                 sendResponse({
                     'message': browser.i18n.getMessage('unknownRequest')
@@ -530,6 +535,60 @@ try {
                     reject(event);
                 }
             });
+        } else {
+            openDB();
+        }
+    }
+
+    function exportDB() {
+        if (!db) {
+            return;
+        }
+
+        const transaction = db.transaction([...db.objectStoreNames]);
+        const requests = [...db.objectStoreNames].map(table => {
+            const request = transaction.objectStore(table)
+                                        .getAll();
+
+            return new Promise((resolve, reject) => {
+                request.onsuccess = function () {
+                    resolve({
+                        table: table,
+                        data: request.result
+                    });
+                }
+
+                request.onerror = function (event) {
+                    reject(event);
+                }
+            });
+        });
+
+        return Promise.all(requests);
+    }
+
+    function importDB(importedData) {
+        if (db) {
+            const requests = importedData.map(table => {
+                const transaction = db.transaction(table.table, 'readwrite');
+                const store = transaction.objectStore(table.table);
+
+                table.data.forEach(data => {
+                    store.put(data);
+                });
+
+                return new Promise((resolve, reject) => {
+                    transaction.oncomplete = function () {
+                        resolve(true);
+                    }
+
+                    transaction.onerror = function (event) {
+                        reject(event);
+                    }
+                });
+            });
+
+            return Promise.all(requests);
         } else {
             openDB();
         }

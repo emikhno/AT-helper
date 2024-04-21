@@ -124,6 +124,10 @@ html {
 	display: flex;
 }
 
+.d-none {
+	display: none;
+}
+
 .ml-auto {
 	margin-left: auto;
 }
@@ -143,6 +147,10 @@ html {
 
 .mr-2 {
 	margin-right: 8px;
+}
+
+.mr-4 {
+	margin-right: 16px;
 }
 
 .py-4 {
@@ -185,4 +193,22 @@ html {
 
 .theme_dark .profiles-list__note-edit_saved {
     outline: 1px solid limegreen;
+}
+
+.btn {
+	border: none;
+	border-radius: 4px;
+	padding: 4px 8px;
+	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+#btn-export {
+	background-color: #43A047;
+	color: #FFFFFF;
+}
+
+#btn-import {
+	background-color: #E53935;
+	color: #FFFFFF;
 }

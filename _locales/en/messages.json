@@ -122,5 +122,10 @@
   "profileInfoPlaceholder": {
     "message": "Your notes about this user.",
     "description": "Some text."
+  },
+
+  "dbImported": {
+    "message": "Data successfully imported! The page will be reloaded.",
+    "description": "Notification."
   }
 }
