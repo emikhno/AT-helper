@@ -1267,6 +1267,10 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: #000000 !important;
 }
 
+.AThelper__theme_dark .feed-row.is-new .book-review-info {
+    background-color: #424242;
+}
+
 .AThelper__theme_dark .drop-element.drop-theme-arrows.drop-element-attached-bottom.drop-element-attached-center.drop-view-comment .drop-content {
     background-color: #000000;
 }
