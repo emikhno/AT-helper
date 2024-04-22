@@ -85,7 +85,12 @@
   },
 
   "hideTopicsText": {
-    "message": "Hide Topics",
+    "message": "Hide topics",
+    "description": "Some text."
+  },
+
+  "hideTopicsCountText": {
+    "message": "Hidden topics: ",
     "description": "Some text."
   },
 

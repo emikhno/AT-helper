@@ -89,6 +89,11 @@
     "description": "Текст."
   },
 
+  "hideTopicsCountText": {
+    "message": "Скрыто тем: ",
+    "description": "Текст."
+  },
+
   "likesFromText": {
     "message": "Лайки от",
     "description": "Текст."
