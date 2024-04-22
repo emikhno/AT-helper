@@ -66,7 +66,9 @@ try {
         const option = document.createElement('option');
         option.value = '';
         option.disabled = true;
-        option.textContent = browser.i18n.getMessage('hideTopicsText');
+        option.textContent = topicFilter.length
+                                ? browser.i18n.getMessage('hideTopicsCountText') + topicFilter.length
+                                : browser.i18n.getMessage('hideTopicsText');
         selector.appendChild(option);
 
         for (let topic of topicMap) {
@@ -88,7 +90,9 @@ try {
 
         selector.addEventListener('focusout', () => {
             selector.size = 1;
-            firstOption.textContent = browser.i18n.getMessage('hideTopicsText');
+            firstOption.textContent = topicFilter.length
+                                        ? browser.i18n.getMessage('hideTopicsCountText') + topicFilter.length
+                                        : browser.i18n.getMessage('hideTopicsText');
             firstOption.disabled = true;
         });
 
