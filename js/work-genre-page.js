@@ -30,11 +30,16 @@ try {
 
 
     function createLikesFilter(likesMin, likesMax) {
+        if (document.getElementById('moreFilters_likes')) {
+            return;
+        }
+
         const moreFilters = document.getElementById('moreFilters');
 
         const moreFiltersRow = document.createElement('div');
         moreFiltersRow.classList.add('filter-row');
         moreFiltersRow.classList.add('row');
+        moreFiltersRow.id = 'moreFilters_likes'
 
         const likesFilterMinWrapper = document.createElement('div');
         likesFilterMinWrapper.classList.add('form-group');
