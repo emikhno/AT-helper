@@ -1304,6 +1304,32 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     background-color: #424242 !important;
 }
 
+.AThelper__theme_dark .contact {
+    color: #E0E0E0;
+}
+
+.AThelper__theme_dark a.list-group-item:focus {
+    background-color: #212121;
+}
+
+.AThelper__theme_dark .pm-messages .message-text-wrapper::after {
+    border-right-color: #212121;
+}
+
+.AThelper__theme_dark .pm-messages .message.own .message-text-wrapper::after {
+    border-left-color: #212121;
+}
+
+.AThelper__theme_dark .pm-messages .message-text-wrapper,
+.AThelper__theme_dark .pm-messages .message.own .message-text-wrapper {
+    background-color: #212121;
+    color: #FFFFFF;
+}
+
+.AThelper__theme_dark .book-page .book-title {
+    color: #E0E0E0;
+}
+
 .AThelper__theme_dark {
     scrollbar-color: #838385 #343436;
 }
