@@ -1330,6 +1330,10 @@ body:not(.layout-responsive).AThelper__theme_dark .navbar .navbar-nav .open .dro
     color: #E0E0E0;
 }
 
+.AThelper__theme_dark .searched-item {
+    background: #616161;
+}
+
 .AThelper__theme_dark {
     scrollbar-color: #838385 #343436;
 }
