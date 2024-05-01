@@ -84,10 +84,20 @@ try {
         document.getElementById(`${extPrefix}typoIcon_path`).setAttribute('stroke', '#FFFFFF');
         document.getElementById(`${extPrefix}typosList_path`).setAttribute('stroke', '#FFFFFF');
 
-        const hardcodedStylesSpans = document.querySelectorAll('span[style*="color:"]');
-        for (let i = 0; i < hardcodedStylesSpans.length; i++) {
-            hardcodedStylesSpans[i].style.color = '';
-        }
+        const timerId = setInterval(() => {
+            const isLoading = document.querySelector('.loading');
+            if (!isLoading) {
+                clearInterval(timerId);
+                const hardcodedStylesSpans = document.querySelectorAll('span[style*="color:"]');
+                for (let i = 0; i < hardcodedStylesSpans.length; i++) {
+                    hardcodedStylesSpans[i].style.color = '';
+                }
+                const hardcodedStylesParagraphs = document.querySelectorAll('p[style*="color:"]');
+                for (let i = 0; i < hardcodedStylesParagraphs.length; i++) {
+                    hardcodedStylesParagraphs[i].style.color = '';
+                }
+            }
+        }, 1000);
     }
 
     function applyDefaultTheme() {
