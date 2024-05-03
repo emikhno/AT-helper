@@ -4,30 +4,28 @@ try {
     let userSelection = {};
 
     const isProtectedFromCopying = document.querySelector('.noselect');
-    if (isProtectedFromCopying) {
-        throw browser.i18n.getMessage('protectedFromCopying');
-    }
-
-    const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
-    typoIcon.classList.add(`${extPrefix}d-block`);
-    typoIcon.addEventListener('click', () => {
-        openWhatWrongModal();
-    });
-
-    document.onselectionchange = () => {
-        const selection = document.getSelection();
-        if (!selection.isCollapsed) {
-            userSelection.start = selection.anchorNode.textContent.slice(0, selection.anchorOffset);
-            userSelection.selected = selection.toString();
-            userSelection.end = selection.focusNode.textContent.slice(selection.focusOffset);
-        }
-    }
-
-    document.addEventListener('keyup', event => {
-        if (event.ctrlKey && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+    if (!isProtectedFromCopying) {
+        const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
+        typoIcon.classList.add(`${extPrefix}d-block`);
+        typoIcon.addEventListener('click', () => {
             openWhatWrongModal();
+        });
+
+        document.onselectionchange = () => {
+            const selection = document.getSelection();
+            if (!selection.isCollapsed) {
+                userSelection.start = selection.anchorNode.textContent.slice(0, selection.anchorOffset);
+                userSelection.selected = selection.toString();
+                userSelection.end = selection.focusNode.textContent.slice(selection.focusOffset);
+            }
         }
-    });
+
+        document.addEventListener('keyup', event => {
+            if (event.ctrlKey && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+                openWhatWrongModal();
+            }
+        });
+    }
 
 
 
@@ -78,9 +76,7 @@ try {
 
         const modalSave = AThelper.modal.querySelector(`.${extPrefix}modal_actionMain`);
         modalSave.textContent = browser.i18n.getMessage('saveText');
-        modalSave.addEventListener('click', () => {
-            saveUserSelection();
-        });
+        modalSave.addEventListener('click', saveUserSelection);
 
         AThelper.modal.classList.add(`${extPrefix}d-block`);
         typoDescriptionInput.focus();
