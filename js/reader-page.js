@@ -3,6 +3,26 @@ try {
     const extPrefix = AThelper.prefix;
     let userSelection = {};
 
+    setInterval(() => {
+        const isLoading = document.querySelector('.loading');
+        if (isLoading) {
+            const loadingTimerId = setInterval(() => {
+                const isLoading = document.querySelector('.loading');
+                if (!isLoading) {
+                    clearInterval(loadingTimerId);
+                    const hardcodedStylesSpans = document.querySelectorAll('span[style*="color:"]');
+                    for (let i = 0; i < hardcodedStylesSpans.length; i++) {
+                        hardcodedStylesSpans[i].style.color = '';
+                    }
+                    const hardcodedStylesParagraphs = document.querySelectorAll('p[style*="color:"]');
+                    for (let i = 0; i < hardcodedStylesParagraphs.length; i++) {
+                        hardcodedStylesParagraphs[i].style.color = '';
+                    }
+                }
+            }, 500);
+        }
+    }, 500);
+
     const isProtectedFromCopying = document.querySelector('.noselect');
     if (!isProtectedFromCopying) {
         const typoIcon = document.getElementById(`${extPrefix}typoIcon`);
