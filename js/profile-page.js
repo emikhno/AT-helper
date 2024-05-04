@@ -30,12 +30,17 @@ try {
 
 
     function createTextarea() {
+        if (document.getElementById('profile-info_textarea')) {
+            return;
+        }
+
         const profileInfoWrapper = document.querySelector('.profile-info');
         if (profileInfoWrapper) {
             clearInterval(timerId);
 
             textarea = document.createElement('textarea');
             textarea.classList.add(`${extPrefix}profile-info`);
+            textarea.id = 'profile-info_textarea'
             textarea.rows = 2;
             textarea.cols = 50;
             textarea.placeholder = browser.i18n.getMessage('profileInfoPlaceholder');
