@@ -138,7 +138,11 @@ try {
 
             const diffElement = document.createElement('span');
             diffElement.classList.add(`${extPrefix}statDiff`)
-            diffElement.style.color = diff > 0 ? '#4CAF50' : (diff < 0 ? '#F44336' : '#757575');
+            diffElement.classList.add(diff > 0
+                ? 'AThelper__color_green'
+                : (diff < 0
+                    ? 'AThelper__color_red'
+                    : 'AThelper__color_gray'));
             diffElement.textContent = '(' + (diff > 0 ? '+' : '') + diff + ')';
             statElement.appendChild(diffElement);
         }
