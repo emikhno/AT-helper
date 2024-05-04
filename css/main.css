@@ -192,6 +192,18 @@ span.AThelper__modal_close {
     cursor: pointer;
 }
 
+.AThelper__color_green {
+    color: #4CAF50;
+}
+
+.AThelper__color_red {
+    color: #F44336;
+}
+
+.AThelper__color_gray {
+    color: #757575;
+}
+
 /* ================================================ Dark theme ================================================ */
 .AThelper__theme_dark {
     background-color: #424242;
